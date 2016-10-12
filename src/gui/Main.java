@@ -15,18 +15,22 @@ import net.miginfocom.swing.MigLayout;
 public class Main extends JFrame {
 
     JetMenuBar jmb;
+    MainPanel panel;
 
     public Main() {
         super("Java Engine Tools");
         jmb = new JetMenuBar();
+        panel = new MainPanel(this.getSize());
         setLayout(new MigLayout("insets 0",
                 "[500]",
                 "[500]"));
         setJMenuBar(new JetMenuBar());
-
+        
+        add(panel);
         setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
         addWindowListener(new MainListener());
         pack();
+        setExtendedState(JFrame.MAXIMIZED_BOTH);
         setVisible(true);
     }
 
