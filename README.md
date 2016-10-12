@@ -21,3 +21,8 @@ https://trello.com/invite/b/j9QIxaGj/ab5deefcd1ade164d925cb9078336086/java-engin
 - Comment your code
 	* Google checkstyle is a good baseline
 - Be respectful to others
+
+####FAQ:
+
+Q. Why am I getting an error about MigLayout?
+A. Make sure you include the library in the buildpath. It will be inside of the lib folder.

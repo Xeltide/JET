@@ -1,9 +1,17 @@
 package engine;
 
 import gui.*;
-
+/**
+ * <p>
+ * Main engine loop. Requires handlers before function are added
+ * back in.
+ * </p>
+ * 
+ * @author Xeltide
+ * @version 0.1a
+ */
 public class EngineLoop {
-    
+    //frame maximum time
     public static final long T_PER_UPDATE = 20000;
     
     public void run() {
