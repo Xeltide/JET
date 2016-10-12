@@ -20,7 +20,7 @@ public class Main extends JFrame {
     ObjectHierarchy objH;
     SceneViewer scnView;
     BlockViewer blkView;
-    Console console;
+    public Console console;
 
     public Main() {
         super("Java Engine Tools");

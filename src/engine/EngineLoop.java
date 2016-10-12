@@ -1,6 +1,7 @@
 package engine;
 
-import gui.*;
+import gui.Console;
+
 /**
  * <p>
  * Main engine loop. Requires handlers before function are added
