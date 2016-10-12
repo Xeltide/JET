@@ -14,26 +14,45 @@ import javax.swing.JOptionPane;
 import javax.swing.KeyStroke;
 import javax.swing.filechooser.FileFilter;
 
+/**
+ * <p>FileMenu.</p>
+ * @author Stephen Cheng
+ * @version 0.1a
+ */
 public class FileMenu extends JMenu implements ActionListener {
 
-    private JFileChooser openFile = new JFileChooser();
-    private JFileChooser saveFile = new JFileChooser();
-    private JFileChooser saveAsFile = new JFileChooser();
+    private JFileChooser openProject = new JFileChooser();
+    private JFileChooser saveProject = new JFileChooser();
+    private JFileChooser saveAsProject = new JFileChooser();
+    private JFileChooser openRoom = new JFileChooser();
+    private JFileChooser saveRoom = new JFileChooser();
+    private JFileChooser saveAsRoom = new JFileChooser();
     private final JetFileFilter jetFileFilter = new JetFileFilter();
+    private final RoomFileFilter roomFileFilter = new RoomFileFilter();
 
     private JMenuItem newItem;
-    private JMenuItem openItem;
-    private JMenuItem saveItem;
-    private JMenuItem saveAsItem;
+    private JMenuItem openProjectItem;
+    private JMenuItem saveProjectItem;
+    private JMenuItem saveProjectAsItem;
+
+    private JMenuItem openRoomItem;
+    private JMenuItem saveRoomItem;
+    private JMenuItem saveRoomAsItem;
+
     private JMenuItem exitItem;
 
     public FileMenu () {
         super("File");
         setMnemonic(KeyEvent.VK_F);
         getAccessibleContext().setAccessibleDescription("The file menu");
-        openFile.setFileFilter(jetFileFilter);
-        saveFile.setFileFilter(jetFileFilter);
-        saveAsFile.setFileFilter(jetFileFilter);
+        openProject.setFileFilter(jetFileFilter);
+        saveProject.setFileFilter(jetFileFilter);
+        saveAsProject.setFileFilter(jetFileFilter);
+
+        openRoom.setFileFilter(roomFileFilter);
+        saveRoom.setFileFilter(roomFileFilter);
+        saveAsRoom.setFileFilter(roomFileFilter);
+
 
         newItem = new JMenuItem("New");
         newItem.setMnemonic(KeyEvent.VK_N);
@@ -41,23 +60,35 @@ public class FileMenu extends JMenu implements ActionListener {
         newItem.addActionListener(this);
         add(newItem);
 
-        openItem = new JMenuItem("Open");
-        openItem.setMnemonic(KeyEvent.VK_O);
-        openItem.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_O, ActionEvent.CTRL_MASK));
-        openItem.addActionListener(this);
-        add(openItem);
+        openProjectItem = new JMenuItem("Open");
+        openProjectItem.setMnemonic(KeyEvent.VK_O);
+        openProjectItem.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_O, ActionEvent.CTRL_MASK));
+        openProjectItem.addActionListener(this);
+        add(openProjectItem);
 
-        saveItem = new JMenuItem("Save");
-        saveItem.setMnemonic(KeyEvent.VK_S);
-        saveItem.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_S, ActionEvent.CTRL_MASK));
-        saveItem.addActionListener(this);
-        add(saveItem);
+        saveProjectItem = new JMenuItem("Save");
+        saveProjectItem.setMnemonic(KeyEvent.VK_S);
+        saveProjectItem.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_S, ActionEvent.CTRL_MASK));
+        saveProjectItem.addActionListener(this);
+        add(saveProjectItem);
 
-        saveAsItem = new JMenuItem("Save As");
-        saveAsItem.setMnemonic(KeyEvent.VK_A);
-        saveAsItem.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_S, ActionEvent.CTRL_MASK + ActionEvent.ALT_MASK));
-        saveAsItem.addActionListener(this);
-        add(saveAsItem);
+        saveProjectAsItem = new JMenuItem("Save As");
+        saveProjectAsItem.setMnemonic(KeyEvent.VK_A);
+        saveProjectAsItem.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_S, ActionEvent.CTRL_MASK + ActionEvent.ALT_MASK));
+        saveProjectAsItem.addActionListener(this);
+        add(saveProjectAsItem);
+
+        openRoomItem = new JMenuItem("Open Room");
+        openRoomItem.addActionListener(this);;
+        add(openRoomItem);
+
+        saveRoomItem = new JMenuItem("Save Room");
+        saveRoomItem.addActionListener(this);
+        add(saveRoomItem);
+
+        saveRoomAsItem = new JMenuItem("Save Room As");
+        saveRoomAsItem.addActionListener(this);
+        add(saveRoomAsItem);
 
         exitItem = new JMenuItem("Exit");
         exitItem.setMnemonic(KeyEvent.VK_X);
@@ -71,41 +102,74 @@ public class FileMenu extends JMenu implements ActionListener {
         if (src == newItem) {
             // create a new project
             System.out.println("new item");
-        } else if (src == openItem) {
-            open();
-        } else if (src == saveItem) {
-            save();
-        } else if (src == saveAsItem) {
-            saveAs();
+        } else if (src == openProjectItem) {
+            openProject();
+        } else if (src == saveProjectItem) {
+            saveProject();
+        } else if (src == saveProjectAsItem) {
+            saveProjectAs();
+        } else if (src == openRoomItem) {
+            openRoom();
+        } else if (src == saveRoomItem) {
+            saveRoom();
+        } else if (src == saveRoomAsItem) {
+            saveRoomAs();
         } else if (src == exitItem) {
             exit();
         }
     }
 
-    private void open() {
-        int v = openFile.showOpenDialog(FileMenu.this);
+    private void openProject() {
+        int v = openProject.showOpenDialog(FileMenu.this);
         if (v == JFileChooser.APPROVE_OPTION) {
-            File file = openFile.getSelectedFile();
-            saveFile.setSelectedFile(file);
+            File file = openProject.getSelectedFile();
+            saveProject.setSelectedFile(file);
         }
     }
 
-    private void save() {
-        File file = saveFile.getSelectedFile();
+    private void saveProject() {
+        File file = saveProject.getSelectedFile();
         // If we aren't editing an existing project we save as
         if (file == null) {
-            saveAs();
+            saveProjectAs();
         } else {
             System.out.println("Overwrite file");
         }
     }
 
-    private void saveAs() {
-        int v = saveAsFile.showSaveDialog(FileMenu.this);
+    private void saveProjectAs() {
+        int v = saveAsProject.showSaveDialog(FileMenu.this);
         if (v == JFileChooser.APPROVE_OPTION) {
-            File file = saveAsFile.getSelectedFile();
-            saveFile.setSelectedFile(file);
+            File file = saveAsProject.getSelectedFile();
+            saveProject.setSelectedFile(file);
             System.out.println("Save a new file");
+        }
+    }
+
+    private void openRoom() {
+        int v = openRoom.showOpenDialog(FileMenu.this);
+        if (v == JFileChooser.APPROVE_OPTION) {
+            File file = openRoom.getSelectedFile();
+            saveRoom.setSelectedFile(file);
+        }
+    }
+
+    private void saveRoom() {
+        File file = saveRoom.getSelectedFile();
+        // If we aren't editing an existing project we save as
+        if (file == null) {
+            saveRoomAs();
+        } else {
+            System.out.println("Overwrite room");
+        }
+    }
+
+    private void saveRoomAs() {
+        int v = saveAsRoom.showSaveDialog(FileMenu.this);
+        if (v == JFileChooser.APPROVE_OPTION) {
+            File file = saveAsRoom.getSelectedFile();
+            saveRoom.setSelectedFile(file);
+            System.out.println("Save a new room");
         }
     }
 
@@ -116,7 +180,7 @@ public class FileMenu extends JMenu implements ActionListener {
                 System.exit(0);
                 break;
             case JOptionPane.NO_OPTION:
-                save();
+                saveProject();
                 break;
             case JOptionPane.CANCEL_OPTION:
                 break;
@@ -147,6 +211,29 @@ public class FileMenu extends JMenu implements ActionListener {
         @Override
         public String getDescription() {
             return "Jet project files (*.jet)";
+        }
+
+    }
+
+    private class RoomFileFilter extends FileFilter {
+
+        public final Pattern r = Pattern.compile(".*\\.room$");
+
+        @Override
+        public boolean accept(File f) {
+            if (f.isDirectory()) {
+                return true;
+            }
+            Matcher m = r.matcher(f.getName());
+            if (m.find()) {
+                    return true;
+                }
+            return false;
+        }
+
+        @Override
+        public String getDescription() {
+            return "Jet room files (*.room)";
         }
 
     }

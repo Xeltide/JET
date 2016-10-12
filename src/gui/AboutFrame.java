@@ -10,15 +10,15 @@ import javax.swing.text.StyledDocument;
 import net.miginfocom.swing.MigLayout;
 
 /**
- * <p>Help.</p>
+ * <p>AboutFrame.</p>
  * @author Stephen Cheng
  * @version 0.1a
  */
-public class Help extends JFrame {
+public class AboutFrame extends JFrame {
 
     private JTextPane text;
 
-    public Help() {
+    public AboutFrame() {
         super("About");
         setLayout(new MigLayout("insets 0, wrap 1",
                 "0[300]0",
@@ -27,7 +27,10 @@ public class Help extends JFrame {
         add(title, "x 0.5al");
 
         text = new JTextPane();
-        text.setText("THERE'S NOTHING HERE LELELEL");
+        text.setText("Version 0.1a\n\n"
+                + "Contributors\n"
+                + "CST Students\n\n"
+                + "\u00A9 2016");
         StyledDocument doc = text.getStyledDocument();
         SimpleAttributeSet center = new SimpleAttributeSet();
         StyleConstants.setAlignment(center, StyleConstants.ALIGN_CENTER);

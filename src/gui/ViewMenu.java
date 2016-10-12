@@ -7,6 +7,11 @@ import java.awt.event.KeyEvent;
 import javax.swing.JMenu;
 import javax.swing.JMenuItem;
 
+/**
+ * <p>ViewMenu.</p>
+ * @author Stephen Cheng
+ * @version 0.1a
+ */
 public class ViewMenu extends JMenu implements ActionListener {
 
     public ViewMenu() {

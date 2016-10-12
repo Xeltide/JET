@@ -8,6 +8,11 @@ import javax.swing.JMenu;
 import javax.swing.JMenuItem;
 import javax.swing.KeyStroke;
 
+/**
+ * <p>HelpMenu.</p>
+ * @author Stephen Cheng
+ * @version 0.1a
+ */
 public class HelpMenu extends JMenu implements ActionListener {
 
     private JMenuItem helpItem;
@@ -32,13 +37,9 @@ public class HelpMenu extends JMenu implements ActionListener {
     public void actionPerformed(ActionEvent e) {
         JMenuItem src = (JMenuItem) e.getSource();
         if (src == aboutItem) {
-            About about = new About();
-            about.pack();
-            about.setVisible(true);
+            AboutFrame about = new AboutFrame();
         } else if (src == helpItem) {
-            Help help = new Help();
-            help.pack();
-            help.setVisible(true);
+            HelpFrame help = new HelpFrame();
         }
     }
 

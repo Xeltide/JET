@@ -6,6 +6,11 @@ import java.awt.event.ActionListener;
 import javax.swing.JMenu;
 import javax.swing.JMenuItem;
 
+/**
+ * <p>VObjectMenu.</p>
+ * @author Stephen Cheng
+ * @version 0.1a
+ */
 public class VObjectMenu extends JMenu implements ActionListener {
 
     private JMenuItem newVObjectItem;
