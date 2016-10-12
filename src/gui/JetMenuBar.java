@@ -9,6 +9,7 @@ import javax.swing.JFileChooser;
 import javax.swing.JMenu;
 import javax.swing.JMenuBar;
 import javax.swing.JMenuItem;
+import javax.swing.JOptionPane;
 import javax.swing.KeyStroke;
 import javax.swing.filechooser.FileFilter;
 
@@ -30,6 +31,9 @@ public class JetMenuBar extends JMenuBar {
     private JMenu editMenu;
     private EditMenuListener eListener;
 
+    private JMenu viewMenu;
+    private ViewMenuListener vListener;
+
     private JMenu helpMenu;
     private HelpMenuListener hListener;
 
@@ -37,6 +41,7 @@ public class JetMenuBar extends JMenuBar {
     private JMenuItem openItem;
     private JMenuItem saveItem;
     private JMenuItem saveAsItem;
+    private JMenuItem exitItem;
 
     private JMenuItem undoItem;
     private JMenuItem redoItem;
@@ -44,6 +49,7 @@ public class JetMenuBar extends JMenuBar {
     private JMenuItem copyItem;
     private JMenuItem pasteItem;
 
+    private JMenuItem helpItem;
     private JMenuItem aboutItem;
 
     public JetMenuBar() {
@@ -81,6 +87,10 @@ public class JetMenuBar extends JMenuBar {
         saveAsItem.addActionListener(fListener);
         fileMenu.add(saveAsItem);
 
+        exitItem = new JMenuItem("Exit");
+        exitItem.setMnemonic(KeyEvent.VK_X);
+        exitItem.addActionListener(fListener);
+        fileMenu.add(exitItem);
 
         editMenu = new JMenu("Edit");
         editMenu.setMnemonic(KeyEvent.VK_E);
@@ -115,6 +125,14 @@ public class JetMenuBar extends JMenuBar {
         pasteItem.addActionListener(eListener);
         editMenu.add(pasteItem);
 
+        viewMenu = new JMenu("View");
+        viewMenu.setMnemonic(KeyEvent.VK_V);
+        viewMenu.getAccessibleContext().setAccessibleDescription("The view menu");
+        vListener = new ViewMenuListener();
+        this.add(viewMenu);
+
+
+
         helpMenu = new JMenu("Help");
         helpMenu.setMnemonic(KeyEvent.VK_H);
         helpMenu.getAccessibleContext().setAccessibleDescription("The help menu");
@@ -122,7 +140,13 @@ public class JetMenuBar extends JMenuBar {
         this.add(helpMenu);
 
         aboutItem = new JMenuItem("About");
+        aboutItem.addActionListener(hListener);
         helpMenu.add(aboutItem);
+
+        helpItem = new JMenuItem("Help");
+        helpItem.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_F1, 0));
+        helpItem.addActionListener(hListener);
+        helpMenu.add(helpItem);
     }
 
     /**
@@ -144,36 +168,52 @@ public class JetMenuBar extends JMenuBar {
                 save();
             } else if (src == saveAsItem) {
                 saveAs();
+            } else if (src == exitItem) {
+                exit();
             }
         }
 
-        private void open() {
-            int v = openFile.showOpenDialog(JetMenuBar.this);
-            if (v == JFileChooser.APPROVE_OPTION) {
-                File file = openFile.getSelectedFile();
-                saveFile.setSelectedFile(file);
-            }
-        }
+    }
 
-        private void save() {
-            File file = saveFile.getSelectedFile();
-            // If we aren't editing an existing project we save as
-            if (file == null) {
-                saveAs();
-            } else {
-                System.out.println("Overwrite file");
-            }
+    private void open() {
+        int v = openFile.showOpenDialog(JetMenuBar.this);
+        if (v == JFileChooser.APPROVE_OPTION) {
+            File file = openFile.getSelectedFile();
+            saveFile.setSelectedFile(file);
         }
+    }
 
-        private void saveAs() {
-            int v = saveAsFile.showSaveDialog(JetMenuBar.this);
-            if (v == JFileChooser.APPROVE_OPTION) {
-                File file = saveAsFile.getSelectedFile();
-                saveFile.setSelectedFile(file);
-                System.out.println("Save a new file");
-            }
+    private void save() {
+        File file = saveFile.getSelectedFile();
+        // If we aren't editing an existing project we save as
+        if (file == null) {
+            saveAs();
+        } else {
+            System.out.println("Overwrite file");
         }
+    }
 
+    private void saveAs() {
+        int v = saveAsFile.showSaveDialog(JetMenuBar.this);
+        if (v == JFileChooser.APPROVE_OPTION) {
+            File file = saveAsFile.getSelectedFile();
+            saveFile.setSelectedFile(file);
+            System.out.println("Save a new file");
+        }
+    }
+
+    public void exit() {
+        int v = JOptionPane.showConfirmDialog(null, "Are you sure you want to exit without saving?");
+        switch (v) {
+            case JOptionPane.YES_OPTION:
+                System.exit(0);
+                break;
+            case JOptionPane.NO_OPTION:
+                save();
+                break;
+            case JOptionPane.CANCEL_OPTION:
+                break;
+        }
     }
 
     /**
@@ -202,6 +242,20 @@ public class JetMenuBar extends JMenuBar {
     }
 
     /**
+     * <p>ViewMenuListener.</p>
+     * @author Stephen Cheng
+     * @version 0.1a
+     */
+    private class ViewMenuListener implements ActionListener {
+
+        @Override
+        public void actionPerformed(ActionEvent e) {
+            JMenuItem stc = (JMenuItem) e.getSource();
+        }
+
+    }
+
+    /**
      * <p>HelpMenuListener.</p>
      * @author Stephen Cheng
      * @version 0.1a
@@ -211,6 +265,15 @@ public class JetMenuBar extends JMenuBar {
         @Override
         public void actionPerformed(ActionEvent e) {
             JMenuItem src = (JMenuItem) e.getSource();
+            if (src == aboutItem) {
+                About about = new About();
+                about.pack();
+                about.setVisible(true);
+            } else if (src == helpItem) {
+                Help help = new Help();
+                help.pack();
+                help.setVisible(true);
+            }
         }
 
     }
