@@ -8,6 +8,10 @@ public class BlockBuilder {
 
     static ArrayList<Block> blocks = new ArrayList<Block>();
     
+    public ArrayList<Block> getBlocks() {
+        return blocks;
+    }
+    
     public static void newBlock(Block newBlock) {
         boolean exists = false;
         for (Block curBlock : blocks) {

@@ -1,6 +1,5 @@
 package objects;
 
-import java.util.Vector;
 
 public class LocRot extends Block {
 
