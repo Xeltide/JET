@@ -91,7 +91,7 @@ public class FileMenu extends JMenu implements ActionListener {
         add(saveProjectAsItem);
 
         openRoomItem = new JMenuItem("Open Room");
-        openRoomItem.addActionListener(this);;
+        openRoomItem.addActionListener(this);
         add(openRoomItem);
 
         saveRoomItem = new JMenuItem("Save Room");

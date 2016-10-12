@@ -30,7 +30,6 @@ public class VObjectMenu extends JMenu implements ActionListener {
         JMenuItem src = (JMenuItem) e.getSource();
         if (src == newVObjectItem) {
             ObjectHierarchy.newObject();
-            Console.log("VObject created");
             revalidate();
         }
     }

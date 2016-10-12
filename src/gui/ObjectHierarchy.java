@@ -23,9 +23,9 @@ import objects.VObject;
 public class ObjectHierarchy extends JPanel {
     
     private static ArrayList<VObject> objects = new ArrayList<VObject>();
-    private static JPanel panelBox = new JPanel();
+    private JPanel panelBox = new JPanel();
     private static JPanel objectBox = new JPanel();
-    private static JScrollPane objectList = new JScrollPane(objectBox, JScrollPane.VERTICAL_SCROLLBAR_AS_NEEDED, JScrollPane.HORIZONTAL_SCROLLBAR_NEVER);
+    private JScrollPane objectList = new JScrollPane(objectBox, JScrollPane.VERTICAL_SCROLLBAR_AS_NEEDED, JScrollPane.HORIZONTAL_SCROLLBAR_NEVER);
     private JLabel title = new JLabel("Hierarchy");
     
     ObjectHierarchy() {
@@ -69,13 +69,5 @@ public class ObjectHierarchy extends JPanel {
     
     public static void addToBoxList(String name) {
         objectBox.add(new JLabel(name));
-    }
-    
-    public static void refreshList() {
-        objectList = new JScrollPane(objectBox);
-        panelBox.add(objectList);
-        for (VObject curObj : objects) {
-            objectBox.add(new JLabel(curObj.getName()));
-        }
     }
 }
