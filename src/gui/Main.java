@@ -21,9 +21,9 @@ public class Main extends JFrame {
         super("Java Engine Tools");
         jmb = new JetMenuBar();
         panel = new MainPanel(this.getSize());
-        setLayout(new MigLayout("insets 0",
-                "[500]",
-                "[500]"));
+        setLayout(new MigLayout("insets 0, wrap 1",
+                "[grow, fill]",
+                "[grow, fill]"));
         setJMenuBar(new JetMenuBar());
         
         add(panel);
@@ -48,7 +48,7 @@ public class Main extends JFrame {
     }
 
     public static void main(String[] args) {
-        new Main();
+        Main main = new Main();
     }
 
 }
