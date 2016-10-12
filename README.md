@@ -18,4 +18,6 @@ https://trello.com/invite/b/j9QIxaGj/ab5deefcd1ade164d925cb9078336086/java-engin
 - If you need help, attach a purple label to your task or reach out to another member
 - All "completed" tasks are to be tested thoroughly **before** merging
 	* Purposeful or excesive premature merging will result in bans
+- Comment your code
+	* Google checkstyle is a good baseline
 - Be respectful to others
