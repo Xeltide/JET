@@ -13,6 +13,18 @@ import javax.swing.JMenuItem;
 import javax.swing.JOptionPane;
 import javax.swing.KeyStroke;
 import javax.swing.filechooser.FileFilter;
+import javax.xml.parsers.DocumentBuilder;
+import javax.xml.parsers.DocumentBuilderFactory;
+import javax.xml.parsers.ParserConfigurationException;
+import javax.xml.transform.Transformer;
+import javax.xml.transform.TransformerConfigurationException;
+import javax.xml.transform.TransformerException;
+import javax.xml.transform.TransformerFactory;
+import javax.xml.transform.dom.DOMSource;
+import javax.xml.transform.stream.StreamResult;
+
+import org.w3c.dom.Document;
+import org.w3c.dom.Element;
 
 /**
  * <p>FileMenu.</p>
@@ -170,9 +182,53 @@ public class FileMenu extends JMenu implements ActionListener {
             File file = saveAsRoom.getSelectedFile();
             saveRoom.setSelectedFile(file);
             System.out.println("Save a new room");
+            createXml(saveRoom.getSelectedFile());
         }
     }
 
+    private void createXml(File file) {
+        DocumentBuilderFactory factory = DocumentBuilderFactory.newInstance();
+        DocumentBuilder builder = null;
+        try {
+            builder = factory.newDocumentBuilder();
+        } catch (ParserConfigurationException e) {
+            // TODO Auto-generated catch block
+            e.printStackTrace();
+        }
+        Document doc = builder.newDocument();
+        Element rootElement = doc.createElement("Room");
+        doc.appendChild(rootElement);
+        
+        Element dim = doc.createElement("Dimensions");
+        dim.setAttribute("width", "50");
+        dim.setAttribute("height", "50");
+        rootElement.appendChild(dim);
+        
+
+        // write the content into xml file
+        TransformerFactory transformerFactory = TransformerFactory.newInstance();
+        Transformer transformer = null;
+        try {
+            transformer = transformerFactory.newTransformer();
+        } catch (TransformerConfigurationException e1) {
+            e1.printStackTrace();
+        }
+        DOMSource source = new DOMSource(doc);
+        StreamResult result = new StreamResult(file);
+
+        // Output to console for testing
+        // StreamResult result = new StreamResult(System.out);
+
+        try {
+            transformer.transform(source, result);
+        } catch (TransformerException e) {
+            // TODO Auto-generated catch block
+            e.printStackTrace();
+        }
+
+        System.out.println("File saved!");
+    }
+    
     public void exit() {
         int v = JOptionPane.showConfirmDialog(null, "Are you sure you want to exit without saving?");
         switch (v) {
