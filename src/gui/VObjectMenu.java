@@ -13,6 +13,7 @@ import javax.swing.KeyStroke;
  * @author Stephen Cheng
  * @version 0.1a
  */
+@SuppressWarnings("serial")
 public class VObjectMenu extends JMenu implements ActionListener {
 
     private JMenuItem newVObjectItem;

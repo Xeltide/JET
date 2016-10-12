@@ -68,6 +68,7 @@ public class ObjectHierarchy extends JPanel {
     }
     
     public static void addToBoxList(String name) {
-        objectBox.add(new JLabel(name));
+        JLabel temp = new JLabel(name);
+        objectBox.add(temp);
     }
 }
