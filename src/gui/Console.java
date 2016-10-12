@@ -1,9 +1,13 @@
 package gui;
 
-import javax.swing.BoxLayout;
+import java.awt.Color;
+
+import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTextArea;
+
+import net.miginfocom.swing.MigLayout;
 /**
  * <p>
  * Creates a basic console panel using Console.log to display
@@ -20,19 +24,28 @@ public class Console extends JPanel {
     private JScrollPane pane = new JScrollPane(textBox);
     
     Console() {
-        textBox.setLayout(new BoxLayout(textBox, 1));
+        this.setLayout(new MigLayout("insets 0, wrap 1",
+                "0[100%, grow, fill]0",
+                "0[][grow, fill]0"));
+        textBox.setLayout(new MigLayout("insets 0, wrap 1",
+                "0[100%, grow, fill]0",
+                "0[]0"));
+        add(new JLabel("Console"));
+        textBox.setBackground(Color.WHITE);
         add(pane);
     }
     
     public static void log(String str) {
-        textBox.add(new JTextArea(str));
+        JTextArea area = new JTextArea(str);
+        area.setEditable(false);
+        textBox.add(area);
     }
     
     public static void log(long str) {
-        textBox.add(new JTextArea(str + ""));
+        log("" + str);
     }
     
     public static void log(int str) {
-        textBox.add(new JTextArea(str +""));
+        log("" + str);
     }
 }

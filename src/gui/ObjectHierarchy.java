@@ -1,14 +1,14 @@
 package gui;
 
 import java.awt.Color;
-import java.awt.Dimension;
 import java.util.ArrayList;
 
 import javax.swing.BorderFactory;
-import javax.swing.BoxLayout;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
+
+import net.miginfocom.swing.MigLayout;
 import objects.VObject;
 /**
  * <p>
@@ -25,14 +25,21 @@ public class ObjectHierarchy extends JPanel {
     private static ArrayList<VObject> objects = new ArrayList<VObject>();
     private static JPanel panelBox = new JPanel();
     private static JPanel objectBox = new JPanel();
-    private static JScrollPane objectList = new JScrollPane(objectBox, JScrollPane.VERTICAL_SCROLLBAR_ALWAYS, JScrollPane.HORIZONTAL_SCROLLBAR_NEVER);
+    private static JScrollPane objectList = new JScrollPane(objectBox, JScrollPane.VERTICAL_SCROLLBAR_AS_NEEDED, JScrollPane.HORIZONTAL_SCROLLBAR_NEVER);
     private JLabel title = new JLabel("Hierarchy");
     
     ObjectHierarchy() {
         setBorder(BorderFactory.createLineBorder(Color.black));
-        panelBox.setLayout(new BoxLayout(panelBox, BoxLayout.Y_AXIS));
-        objectBox.setLayout(new BoxLayout(objectBox, 1));
-        setPreferredSize(new Dimension(150, 3000));
+        this.setLayout(new MigLayout("insets 0, wrap 1",
+                "0[100%, grow, fill]0",
+                "0[fill, grow]0"));
+        panelBox.setLayout(new MigLayout("insets 0, wrap 1",
+                "0[100%, grow, fill]0",
+                "0[0][100%, grow, fill]0"));
+        objectBox.setLayout(new MigLayout("insets 0, wrap 1",
+                "0[grow, fill]0",
+                "0[0]0"));
+        objectBox.setBackground(Color.WHITE);
         add(panelBox);
         panelBox.add(title);
         panelBox.add(objectList);
