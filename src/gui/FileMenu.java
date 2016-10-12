@@ -1,7 +1,6 @@
 package gui;
 
 import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
 import java.io.File;
 import java.util.regex.Matcher;
@@ -30,7 +29,7 @@ import org.w3c.dom.Element;
  * @author Stephen Cheng
  * @version 0.1a
  */
-public class FileMenu extends JetMenu implements ActionListener {
+public class FileMenu extends JetMenu {
 
     private JFileChooser openProject = new JFileChooser();
     private JFileChooser saveProject = new JFileChooser();
