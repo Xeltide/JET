@@ -14,15 +14,15 @@ public class MainPanel extends JPanel {
     
     MainPanel(Dimension size) {
         setLayout(new MigLayout("insets 0, wrap 3",
-                "0[33%, grow, fill][33%, grow, fill][33%, grow, fill]0",
-                "0[50%, fill][50%, fill]0"));
+                "0[20%, grow, fill][60%, grow, fill][20%, grow, fill]0",
+                "0[70%, fill][30%, fill]0"));
         objH = new ObjectHierarchy();
         console = new Console();
         blkView = new BlockViewer();
         
         add(objH);
         add(new SceneViewer());
-        add(blkView);
-        add(console, "newline, span 3");
+        add(blkView, "span 1 2");
+        add(console, "newline, span 2");
     }
 }

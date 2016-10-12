@@ -12,11 +12,15 @@ import net.miginfocom.swing.MigLayout;
  */
 public class BlockViewer extends JPanel {
 
+    private JPanel viewer;
+    
     BlockViewer() {
         this.setLayout(new MigLayout("insets 0, wrap 1",
             "0[100%, grow, fill]0",
             "0[][grow, fill]0"));
+        viewer = new JPanel(new MigLayout());
         add(new JLabel("BlockViewer"));
+        add(viewer);
     }
     
 }
