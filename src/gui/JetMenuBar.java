@@ -9,14 +9,16 @@ import javax.swing.JMenuBar;
  */
 public class JetMenuBar extends JMenuBar {
 
+    private Main main;
     private FileMenu fileMenu;
     private EditMenu editMenu;
     private ViewMenu viewMenu;
     private VObjectMenu vObjectMenu;
     private HelpMenu helpMenu;
 
-
-    public JetMenuBar() {
+    public JetMenuBar(Main main) {
+        this.main = main;
+        JetMenu.setMain(main);
         fileMenu = new FileMenu();
         this.add(fileMenu);
 
@@ -31,8 +33,6 @@ public class JetMenuBar extends JMenuBar {
 
         helpMenu = new HelpMenu();
         this.add(helpMenu);
-
-
     }
 
     public void exit() {

@@ -1,10 +1,8 @@
 package gui;
 
 import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
 
-import javax.swing.JMenu;
 import javax.swing.JMenuItem;
 import javax.swing.KeyStroke;
 
@@ -13,7 +11,7 @@ import javax.swing.KeyStroke;
  * @author Stephen Cheng
  * @version 0.1a
  */
-public class VObjectMenu extends JMenu implements ActionListener {
+public class VObjectMenu extends JetMenu {
 
     private JMenuItem newVObjectItem;
 
@@ -29,7 +27,8 @@ public class VObjectMenu extends JMenu implements ActionListener {
     public void actionPerformed(ActionEvent e) {
         JMenuItem src = (JMenuItem) e.getSource();
         if (src == newVObjectItem) {
-            ObjectHierarchy.newObject();
+            JetMenu.main.objH.newObject();
+            JetMenu.main.console.log("VObject created");
             revalidate();
         }
     }
