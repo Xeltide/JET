@@ -34,6 +34,9 @@ public class JetMenuBar extends JMenuBar {
     private JMenu viewMenu;
     private ViewMenuListener vListener;
 
+    private JMenu vObjectMenu;
+    private VObjectListener vObListener;
+
     private JMenu helpMenu;
     private HelpMenuListener hListener;
 
@@ -48,6 +51,8 @@ public class JetMenuBar extends JMenuBar {
     private JMenuItem cutItem;
     private JMenuItem copyItem;
     private JMenuItem pasteItem;
+
+    private JMenuItem newVObjectItem;
 
     private JMenuItem helpItem;
     private JMenuItem aboutItem;
@@ -131,7 +136,11 @@ public class JetMenuBar extends JMenuBar {
         vListener = new ViewMenuListener();
         this.add(viewMenu);
 
+        vObjectMenu = new JMenu("VObject");
+        this.add(vObjectMenu);
 
+        newVObjectItem = new JMenuItem("New VObject");
+        vObjectMenu.add(newVObjectItem);
 
         helpMenu = new JMenu("Help");
         helpMenu.setMnemonic(KeyEvent.VK_H);
@@ -250,7 +259,21 @@ public class JetMenuBar extends JMenuBar {
 
         @Override
         public void actionPerformed(ActionEvent e) {
-            JMenuItem stc = (JMenuItem) e.getSource();
+            JMenuItem src = (JMenuItem) e.getSource();
+        }
+
+    }
+
+    /**
+     * <p>VObjectListener.</p>
+     * @author Stephen Cheng
+     * @version 0.1a
+     */
+    private class VObjectListener implements ActionListener {
+
+        @Override
+        public void actionPerformed(ActionEvent e) {
+            JMenuItem src = (JMenuItem) e.getSource();
         }
 
     }
