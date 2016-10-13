@@ -28,7 +28,7 @@ public class Renderer2D extends Block {
     }
 
     @Override
-    public BlockPanel getNewPanel() {
-        return new Renderer2DPanel(this);
+    public BlockPanel getNewPanel(VObject obj) {
+        return new Renderer2DPanel(obj);
     }
 }

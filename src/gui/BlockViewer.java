@@ -2,6 +2,8 @@ package gui;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
 import java.util.ArrayList;
 
 import javax.swing.JButton;
@@ -33,6 +35,13 @@ public class BlockViewer extends JPanel {
             "0[][grow, fill]0"));
         blockPanels = new ArrayList<BlockPanel>();
         viewer = new JPanel(new MigLayout("insets 0, wrap 1"));
+        viewer.addMouseListener(new MouseAdapter() {
+            @Override
+            public void mousePressed(MouseEvent e) {
+                viewer.requestFocus();
+                revalidate();
+            }
+        });
         add(new JLabel("BlockViewer"));
         add(viewer);
 
@@ -62,7 +71,7 @@ public class BlockViewer extends JPanel {
         JLabel name = new JLabel(vObj.getName());
         viewer.add(name);
         for (Block block : vObj.getObjBlk()) {
-            BlockPanel temp = block.getNewPanel();
+            BlockPanel temp = block.getNewPanel(vObj);
             blockPanels.add(temp);
             viewer.add(temp);
         }

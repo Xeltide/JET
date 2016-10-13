@@ -28,7 +28,7 @@ public class LocRot extends Block {
      * @param x float of x
      * @param y float of y
      */
-    LocRot(float x, float y) {
+    public LocRot(float x, float y) {
         this(new Vector2(x, y));
     }
     /**
@@ -50,7 +50,7 @@ public class LocRot extends Block {
     }
 
     @Override
-    public BlockPanel getNewPanel() {
-        return new LocRotPanel(this);
+    public BlockPanel getNewPanel(VObject obj) {
+        return new LocRotPanel(obj);
     }
 }

@@ -111,4 +111,13 @@ public class ObjectHierarchy extends JPanel {
         objectBox.add(label);
         labels.add(label);
     }
+    
+    public void setVObject(String name, VObject newObj) {
+        for (int i = 0; i < objects.size(); i++) {
+            if (objects.get(i).getName().equals(newObj.getName())) {
+                objects.set(i, newObj);
+                break;
+            }
+        }
+    }
 }

@@ -47,4 +47,12 @@ public class VObject {
     public void addBlock(Block newBlock) {
         builder.newBlock(newBlock);
     }
+    
+    public Block getBlockByType(BlockType type) {
+        return builder.getBlockByType(type);
+    }
+    
+    public void setBlockByType(BlockType type, Block newBlock) {
+        builder.setBlockByType(type, newBlock);
+    }
 }

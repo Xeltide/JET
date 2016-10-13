@@ -37,6 +37,24 @@ public class BlockBuilder {
     public ArrayList<Block> getBlocks() {
         return blocks;
     }
+    
+    public Block getBlockByType(BlockType type) {
+        for (Block block : blocks) {
+            if (block.getType() == type) {
+                return block;
+            }
+        }
+        Console.log("VObject does not contain this Block.");
+        return null;
+    }
+    
+    public void setBlockByType(BlockType type, Block newBlock) {
+        for (int i = 0; i < blocks.size(); i++) {
+            if (blocks.get(i).getType() == type) {
+                blocks.set(i, newBlock);
+            }
+        }
+    }
     /**
      * <p>
      * Adds a new Block to the BlockBuilder if the

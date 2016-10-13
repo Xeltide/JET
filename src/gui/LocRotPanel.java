@@ -1,5 +1,9 @@
 package gui;
 
+import java.awt.event.FocusAdapter;
+import java.awt.event.FocusEvent;
+import java.awt.event.FocusListener;
+
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
@@ -7,23 +11,46 @@ import javax.swing.JTextField;
 import net.miginfocom.swing.MigLayout;
 import objects.BlockType;
 import objects.LocRot;
+import objects.VObject;
 
 public class LocRotPanel extends BlockPanel {
 
+    private VObject obj;
     private LocRot locRot;
     
     private JPanel panel;
     private JTextField xCoord;
     private JTextField yCoord;
     
-    public LocRotPanel(LocRot locRotBlock) {
+    public LocRotPanel(VObject obj) {
         super(BlockType.LOC_ROT);
         panel = new JPanel();
         panel.setLayout(new MigLayout("insets 0, wrap 4"));
-        locRot = locRotBlock;
+        this.obj = obj;
+        locRot = (LocRot) obj.getBlockByType(BlockType.LOC_ROT);
         xCoord = new JTextField(200);
+        xCoord.addFocusListener(new FocusAdapter() {
+
+            @Override
+            public void focusLost(FocusEvent e) {
+                locRot = new LocRot(Float.parseFloat(xCoord.getText()), locRot.y());
+                obj.setBlockByType(BlockType.LOC_ROT, locRot);
+                JetMenu.main.objH.setVObject(obj.getName(), obj);
+            }
+            
+        });
         xCoord.setText("" + locRot.x());
         yCoord = new JTextField(200);
+        yCoord.addFocusListener(new FocusAdapter() {
+
+            @Override
+            public void focusLost(FocusEvent e) {
+                locRot = new LocRot(locRot.x(), Float.parseFloat(yCoord.getText()));
+                obj.setBlockByType(BlockType.LOC_ROT, locRot);
+                JetMenu.main.objH.setVObject(obj.getName(), obj);
+            }
+            
+        });
         yCoord.setText("" + locRot.y());
         panel.add(new JLabel("Location:"), "newline, span 4");
         panel.add(new JLabel("X:"));

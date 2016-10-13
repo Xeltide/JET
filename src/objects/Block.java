@@ -54,6 +54,6 @@ abstract public class Block {
         return type;
     }
 
-    public abstract BlockPanel getNewPanel();
+    public abstract BlockPanel getNewPanel(VObject obj);
 
 }
