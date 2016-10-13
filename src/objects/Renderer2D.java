@@ -6,7 +6,9 @@ import java.io.IOException;
 
 import javax.imageio.ImageIO;
 
+import gui.BlockPanel;
 import gui.Console;
+import gui.Renderer2DPanel;
 
 public class Renderer2D extends Block {
 
@@ -23,5 +25,10 @@ public class Renderer2D extends Block {
         } catch (IOException e) {
             Console.log("Error loading image.");
         }
+    }
+
+    @Override
+    public BlockPanel getNewPanel() {
+        return new Renderer2DPanel(this);
     }
 }

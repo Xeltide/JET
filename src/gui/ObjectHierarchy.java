@@ -108,6 +108,7 @@ public class ObjectHierarchy extends JPanel {
     public void addToBoxList(String name) {
         JLabel label = new JLabel(name);
         label.addMouseListener(adapter);
+        label.setOpaque(true);
         objectBox.add(label);
         labels.add(label);
     }

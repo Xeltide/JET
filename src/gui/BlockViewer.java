@@ -1,13 +1,17 @@
 package gui;
 
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.util.ArrayList;
 
+import javax.swing.JButton;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 
 import net.miginfocom.swing.MigLayout;
 import objects.Block;
-import objects.LocRot;
+import objects.BlockType;
 import objects.VObject;
 
 /**
@@ -19,28 +23,47 @@ public class BlockViewer extends JPanel {
 
     private JPanel viewer;
     private ArrayList<BlockPanel> blockPanels;
+    private JButton addBlockButton;
+    private VObject selectedObject;
 
     BlockViewer() {
         blockPanels = new ArrayList<BlockPanel>();
         this.setLayout(new MigLayout("insets 0, wrap 1",
             "0[100%, grow, fill]0",
             "0[][grow, fill]0"));
+        blockPanels = new ArrayList<BlockPanel>();
         viewer = new JPanel(new MigLayout("insets 0, wrap 1"));
         add(new JLabel("BlockViewer"));
         add(viewer);
+
+        addBlockButton = new JButton("Add Block");
+        addBlockButton.addActionListener(new ActionListener(){
+            @Override
+            public void actionPerformed(ActionEvent arg0) {
+                if (selectedObject == null) {
+                    return;
+                }
+                BlockType type = (BlockType) JOptionPane.showInputDialog(null, "Choose one", "Add Component", JOptionPane.PLAIN_MESSAGE, null, BlockType.values(), 1);
+                if (type == null) {
+                    return;
+                }
+                Block block = type.getNewInstance();
+                selectedObject.addBlock(block);
+                loadVObject(selectedObject);
+                revalidate();
+            }
+        });
+        add(addBlockButton);
     }
 
     public void loadVObject(VObject vObj) {
+        selectedObject = vObj;
         blockPanels.clear();
         viewer.removeAll();
-        viewer.add(new JLabel(vObj.getName()));
+        JLabel name = new JLabel(vObj.getName());
+        viewer.add(name);
         for (Block block : vObj.getObjBlk()) {
-            BlockPanel temp = null;
-            switch (block.getType()) {
-            case LOC_ROT:
-                temp = new LocRotPanel((LocRot) block);
-                break;
-            }
+            BlockPanel temp = block.getNewPanel();
             blockPanels.add(temp);
             viewer.add(temp);
         }

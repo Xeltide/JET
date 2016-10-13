@@ -1,4 +1,8 @@
 package objects;
+
+import gui.BlockPanel;
+import gui.LocRotPanel;
+
 /**
  * Basic LocRot with only Location supported so far.
  *
@@ -43,5 +47,10 @@ public class LocRot extends Block {
     
     public float y() {
         return v.y();
+    }
+
+    @Override
+    public BlockPanel getNewPanel() {
+        return new LocRotPanel(this);
     }
 }

@@ -10,8 +10,8 @@ public class Renderer2DPanel extends BlockPanel {
     private Renderer2D rend;
     private JTextField imgLink;
     
-    protected Renderer2DPanel(Renderer2D rend) {
-        super(BlockType.RENDERER_2D.getName());
+    public Renderer2DPanel(Renderer2D rend) {
+        super(BlockType.RENDERER_2D);
         this.rend = rend;
         
         imgLink = new JTextField();

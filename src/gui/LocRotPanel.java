@@ -16,8 +16,8 @@ public class LocRotPanel extends BlockPanel {
     private JTextField xCoord;
     private JTextField yCoord;
     
-    LocRotPanel(LocRot locRotBlock) {
-        super(BlockType.LOC_ROT.getName());
+    public LocRotPanel(LocRot locRotBlock) {
+        super(BlockType.LOC_ROT);
         panel = new JPanel();
         panel.setLayout(new MigLayout("insets 0, wrap 4"));
         locRot = locRotBlock;
