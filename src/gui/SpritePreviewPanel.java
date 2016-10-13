@@ -1,5 +1,6 @@
 package gui;
 
+import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.image.BufferedImage;
@@ -31,7 +32,7 @@ public class SpritePreviewPanel extends JPanel {
                     return;
                 }
                 Graphics2D g2 = (Graphics2D) g;
-                g2.setBackground(PresetColors.BG_COLOR);
+                g2.setBackground(Color.GRAY);
                 g2.clearRect(0, 0, this.getWidth(), this.getHeight());
                 g2.drawImage(img, 0, 0, null);
             }
