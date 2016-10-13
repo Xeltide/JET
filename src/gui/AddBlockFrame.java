@@ -44,6 +44,12 @@ public class AddBlockFrame extends JFrame {
         add(okButton);
 
         JButton cancelButton = new JButton("Cancel");
+        cancelButton.addActionListener(new ActionListener(){
+            @Override
+            public void actionPerformed(ActionEvent arg0) {
+                dispose();
+            }
+        });
         add(cancelButton);
 
         setUndecorated(true);
@@ -75,7 +81,6 @@ public class AddBlockFrame extends JFrame {
         }
         @Override
         public void windowDeactivated(WindowEvent e) {
-            button.setEnabled(true);
             dispose();
         }
 

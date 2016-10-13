@@ -21,7 +21,7 @@ public class Renderer2DPanel extends BlockPanel {
     
     private JPanel panel;
     private JTextField imgLink;
-    
+
     public Renderer2DPanel(VObject obj) {
         super(BlockType.RENDERER_2D);
         panel = new JPanel();
