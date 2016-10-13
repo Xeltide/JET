@@ -68,7 +68,6 @@ public class ObjectHierarchy extends JPanel {
         @Override
         public void mouseReleased(MouseEvent e) {
             objectBox.requestFocus();
-            Console.log("hue");
             Object src = e.getSource();
             if (SwingUtilities.isLeftMouseButton(e)) {
                 if (src instanceof JLabel) {
@@ -174,7 +173,7 @@ public class ObjectHierarchy extends JPanel {
         objectBox.add(label);
         labels.add(label);
     }
-    
+
     public void setVObject(String name, VObject newObj) {
         for (int i = 0; i < objects.size(); i++) {
             if (objects.get(i).getName().equals(newObj.getName())) {
