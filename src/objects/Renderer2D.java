@@ -15,11 +15,13 @@ public class Renderer2D extends Block {
 
     private BufferedImage img;
     private String link;
+    private int order;
 
     Renderer2D() {
         super(BlockType.RENDERER_2D);
         link = "C:/";
         img = null;
+        order = 0;
     }
 
     public void setImg(String location) {
@@ -38,6 +40,14 @@ public class Renderer2D extends Block {
 
     public BufferedImage getImage() {
         return img;
+    }
+
+    public int getOrder() {
+        return order;
+    }
+    
+    public void setOrder(int ord) {
+        order = ord;
     }
 
     @Override
