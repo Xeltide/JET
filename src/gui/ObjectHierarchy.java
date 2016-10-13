@@ -67,11 +67,10 @@ public class ObjectHierarchy extends JPanel {
                     if (src == labels.get(i)) {
                         labels.get(i).setOpaque(true);
                         labels.get(i).setBackground(PresetColors.SELECT_COLOR);
+                        JetMenu.main.blkView.loadVObject(objects.get(i));
                     } else {
                         labels.get(i).setOpaque(false);
                         labels.get(i).setBackground(Color.WHITE);
-                        JetMenu.main.blkView.loadVObject(objects.get(i));
-                        revalidate();
                     }
                 }
                 revalidate();

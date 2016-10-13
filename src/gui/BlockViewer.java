@@ -21,6 +21,7 @@ public class BlockViewer extends JPanel {
     private ArrayList<BlockPanel> blockPanels;
 
     BlockViewer() {
+        blockPanels = new ArrayList<BlockPanel>();
         this.setLayout(new MigLayout("insets 0, wrap 1",
             "0[100%, grow, fill]0",
             "0[][grow, fill]0"));
@@ -30,7 +31,7 @@ public class BlockViewer extends JPanel {
     }
 
     public void loadVObject(VObject vObj) {
-        blockPanels = new ArrayList<BlockPanel>();
+        blockPanels.clear();
         viewer.removeAll();
         viewer.add(new JLabel(vObj.getName()));
         for (Block block : vObj.getObjBlk()) {
@@ -43,6 +44,7 @@ public class BlockViewer extends JPanel {
             blockPanels.add(temp);
             viewer.add(temp);
         }
+        repaint();
     }
 
 }
