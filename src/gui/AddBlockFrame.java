@@ -31,6 +31,8 @@ public class AddBlockFrame extends JFrame {
                 "0[grow, fill]0",
                 "0[grow, fill][]0"));
         AddBlockFrameAdapter adapter = new AddBlockFrameAdapter();
+        addWindowListener(adapter);
+        
         list = new JList(BlockType.values());
         list.setSelectedIndex(0);
         list.addKeyListener(new KeyboardAdapter());
