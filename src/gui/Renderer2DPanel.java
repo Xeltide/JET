@@ -8,12 +8,14 @@ import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
 import java.io.File;
 
+import javax.imageio.ImageIO;
 import javax.swing.JButton;
 import javax.swing.JFileChooser;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
 import javax.swing.filechooser.FileFilter;
+import javax.swing.filechooser.FileNameExtensionFilter;
 
 import net.miginfocom.swing.MigLayout;
 import objects.BlockType;
@@ -51,10 +53,7 @@ public class Renderer2DPanel extends BlockPanel {
 
             @Override
             public void focusLost(FocusEvent e) {
-                rend.setImg(imgLink.getText());
-                obj.setBlockByType(BlockType.RENDERER_2D, rend);
-                JetMenu.main.objH.setVObject(obj.getName(), obj);
-                JetMenu.main.blkView.loadVObject(obj);
+                changeImage();
             }
         });
         imgLink.setText(rend.getImg());
@@ -66,27 +65,26 @@ public class Renderer2DPanel extends BlockPanel {
         add(panel, "newline");
     }
 
+    private void changeImage() {
+        rend.setImg(imgLink.getText());
+        obj.setBlockByType(BlockType.RENDERER_2D, rend);
+        JetMenu.main.objH.setVObject(obj.getName(), obj);
+        JetMenu.main.blkView.loadVObject(obj);
+    }
+
     private class BrowserListener implements ActionListener {
 
         @Override
         public void actionPerformed(ActionEvent e) {
             JFileChooser chooser = new JFileChooser();
-        }
-
-    }
-
-    private class ImageFileFilter extends FileFilter {
-
-        @Override
-        public boolean accept(File arg0) {
-            // TODO Auto-generated method stub
-            return false;
-        }
-
-        @Override
-        public String getDescription() {
-            // TODO Auto-generated method stub
-            return null;
+            FileFilter filter = new FileNameExtensionFilter("Image files", ImageIO.getReaderFileSuffixes());
+            chooser.setFileFilter(filter);
+            int v = chooser.showOpenDialog(Renderer2DPanel.this);
+            if (v == JFileChooser.APPROVE_OPTION) {
+                File file = chooser.getSelectedFile();
+                imgLink.setText(file.getAbsolutePath());
+                changeImage();
+            }
         }
 
     }
