@@ -29,12 +29,13 @@ public class RoomViewer extends JPanel {
     private Point cameraPos = new Point(0, 0);
     float screenToWorldRatio;
     
+    @SuppressWarnings("serial")
     RoomViewer() {
         this.setLayout(new MigLayout("insets 0, wrap 1",
                 "0[grow, fill]0",
                 "0[][grow, fill]0"));
         add(new JLabel("RoomViewer"));
-        viewWidth = viewHeight * room.getWidth() / room.getHeight();
+        viewWidth = viewHeight * (room.getWidth() / room.getHeight());
         screenToWorldRatio = 1.0f * room.getWidth() / viewWidth;
         room = new JPanel(){
             @Override
@@ -65,6 +66,7 @@ public class RoomViewer extends JPanel {
         add(room);
     }
     
+    @SuppressWarnings("unused")
     private Point worldToScreenCoordinates(Point p) {
         int x = cameraPos.x + viewWidth / 2 + p.x;
         int y = cameraPos.y + viewHeight / 2 + p.y;
