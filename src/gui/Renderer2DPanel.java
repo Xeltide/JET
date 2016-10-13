@@ -59,7 +59,7 @@ public class Renderer2DPanel extends BlockPanel {
         });
         order = new JTextField(200);
         order.addKeyListener(new KeyAdapter() {
-            
+
             @Override
             public void keyReleased(KeyEvent e) {
                 if (e.getKeyCode() == KeyEvent.VK_ENTER) {
@@ -69,12 +69,12 @@ public class Renderer2DPanel extends BlockPanel {
             }
         });
         order.addFocusListener(new FocusAdapter() {
-            
+
             @Override
             public void focusLost(FocusEvent e) {
                 rend.setOrder(Integer.parseInt(order.getText()));
                 obj.setBlockByType(BlockType.RENDERER_2D, rend);
-                JetMenu.main.objH.setVObject(obj.getName(), obj);
+                Main.main.objH.setVObject(obj.getName(), obj);
             }
         });
         order.setText("" + rend.getOrder());

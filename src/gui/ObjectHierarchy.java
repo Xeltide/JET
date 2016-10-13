@@ -91,7 +91,7 @@ public class ObjectHierarchy extends JPanel {
             if (label == labels.get(i)) {
                 labels.get(i).setOpaque(true);
                 labels.get(i).setBackground(PresetColors.SELECT_COLOR);
-                JetMenu.main.blkView.loadVObject(objects.get(i));
+                Main.main.blkView.loadVObject(objects.get(i));
                 currentIndex = i;
             } else {
                 labels.get(i).setOpaque(false);

@@ -199,7 +199,7 @@ public class FileMenu extends JetMenu {
         Element rootElement = doc.createElement("Project");
         doc.appendChild(rootElement);
 
-        for (VObject vObj : JetMenu.main.objH.getVObjects()) {
+        for (VObject vObj : Main.main.objH.getVObjects()) {
             Element vObjElement = doc.createElement("VObject");
             vObjElement.setAttribute("name", vObj.getName());
             rootElement.appendChild(vObjElement);

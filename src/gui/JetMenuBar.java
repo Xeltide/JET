@@ -9,16 +9,13 @@ import javax.swing.JMenuBar;
  */
 public class JetMenuBar extends JMenuBar {
 
-    private Main main;
     private FileMenu fileMenu;
     private EditMenu editMenu;
     private ViewMenu viewMenu;
     private VObjectMenu vObjectMenu;
     private HelpMenu helpMenu;
 
-    public JetMenuBar(Main main) {
-        this.main = main;
-        JetMenu.setMain(main);
+    public JetMenuBar() {
         fileMenu = new FileMenu();
         this.add(fileMenu);
 

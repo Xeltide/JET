@@ -63,8 +63,8 @@ public class AddBlockFrame extends JFrame {
         if (type != null) {
             Block block = type.getNewInstance();
             selected.addBlock(block);
-            JetMenu.main.blkView.loadVObject(selected);
-            JetMenu.main.blkView.revalidate();
+            Main.main.blkView.loadVObject(selected);
+            Main.main.blkView.revalidate();
         }
         dispose();
     }

@@ -20,12 +20,12 @@ public class VObjectMenu extends JetMenu {
         newVObjectItem.addActionListener(this);
         add(newVObjectItem);
     }
-    
+
     @Override
     public void actionPerformed(ActionEvent e) {
         JMenuItem src = (JMenuItem) e.getSource();
         if (src == newVObjectItem) {
-            JetMenu.main.objH.newObject();
+            Main.main.objH.newObject();
             Console.log("VObject created");
             revalidate();
         }
