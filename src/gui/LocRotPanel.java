@@ -3,6 +3,8 @@ package gui;
 import java.awt.event.FocusAdapter;
 import java.awt.event.FocusEvent;
 import java.awt.event.FocusListener;
+import java.awt.event.KeyAdapter;
+import java.awt.event.KeyEvent;
 
 import javax.swing.JLabel;
 import javax.swing.JPanel;
@@ -29,6 +31,17 @@ public class LocRotPanel extends BlockPanel {
         this.obj = obj;
         locRot = (LocRot) obj.getBlockByType(BlockType.LOC_ROT);
         xCoord = new JTextField(200);
+        xCoord.addKeyListener(new KeyAdapter() {
+            
+            @Override
+            public void keyReleased(KeyEvent e){
+                if (e.getKeyCode() == KeyEvent.VK_ENTER) {
+                    requestFocusInWindow();
+                    revalidate();
+                }
+            }
+            
+        });
         xCoord.addFocusListener(new FocusAdapter() {
 
             @Override
@@ -41,6 +54,17 @@ public class LocRotPanel extends BlockPanel {
         });
         xCoord.setText("" + locRot.x());
         yCoord = new JTextField(200);
+        yCoord.addKeyListener(new KeyAdapter() {
+            
+            @Override
+            public void keyReleased(KeyEvent e){
+                if (e.getKeyCode() == KeyEvent.VK_ENTER) {
+                    requestFocusInWindow();
+                    revalidate();
+                }
+            }
+            
+        });
         yCoord.addFocusListener(new FocusAdapter() {
 
             @Override
