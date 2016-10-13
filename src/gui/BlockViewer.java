@@ -13,6 +13,7 @@ import javax.swing.JPanel;
 
 import net.miginfocom.swing.MigLayout;
 import objects.Block;
+import objects.Renderer2D;
 import objects.VObject;
 
 /**
@@ -64,12 +65,20 @@ public class BlockViewer extends JPanel {
         viewer.removeAll();
         JLabel name = new JLabel(vObj.getName());
         viewer.add(name);
+        SpritePreviewPanel sprite = null;
         for (Block block : vObj.getObjBlk()) {
             BlockPanel temp = block.getNewPanel(vObj);
             blockPanels.add(temp);
             viewer.add(temp);
+            if (block instanceof Renderer2D) {
+                Renderer2D tmp = (Renderer2D) block;
+                sprite = new SpritePreviewPanel(tmp.getImage());
+            }
         }
         viewer.add(addBlockButton, "x 0.5al, grow 0 0");
+        if (sprite != null) {
+            add(sprite);
+        }
         repaint();
     }
 

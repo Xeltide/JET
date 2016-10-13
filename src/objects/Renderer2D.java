@@ -8,6 +8,7 @@ import javax.imageio.ImageIO;
 
 import gui.BlockPanel;
 import gui.Console;
+import gui.Main;
 import gui.Renderer2DPanel;
 
 public class Renderer2D extends Block {
@@ -25,6 +26,17 @@ public class Renderer2D extends Block {
         } catch (IOException e) {
             Console.log("Error loading image.");
         }
+    }
+
+    public BufferedImage getImage() {
+        try {
+            return ImageIO.read(Main.class.getClassLoader().getResourceAsStream("./images/chiaki.png"));
+        } catch (IOException e) {
+            // TODO Auto-generated catch block
+            e.printStackTrace();
+            return null;
+        }
+//        return img;
     }
 
     @Override
