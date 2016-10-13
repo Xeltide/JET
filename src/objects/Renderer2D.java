@@ -37,14 +37,7 @@ public class Renderer2D extends Block {
     }
 
     public BufferedImage getImage() {
-        try {
-            return ImageIO.read(Main.class.getClassLoader().getResourceAsStream("./images/chiaki.png"));
-        } catch (IOException e) {
-            // TODO Auto-generated catch block
-            e.printStackTrace();
-            return null;
-        }
-//        return img;
+        return img;
     }
 
     @Override
