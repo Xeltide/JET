@@ -28,7 +28,7 @@ public class VObjectMenu extends JetMenu {
         JMenuItem src = (JMenuItem) e.getSource();
         if (src == newVObjectItem) {
             JetMenu.main.objH.newObject();
-            JetMenu.main.console.log("VObject created");
+            Console.log("VObject created");
             revalidate();
         }
     }

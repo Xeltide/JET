@@ -1,5 +1,7 @@
 package objects;
 
+import gui.BlockPanel;
+
 abstract public class Block {
     /**
      * <p>
@@ -51,5 +53,7 @@ abstract public class Block {
     public BlockType getType() {
         return type;
     }
+
+    public abstract BlockPanel getNewPanel();
 
 }

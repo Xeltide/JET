@@ -65,7 +65,6 @@ public class ObjectHierarchy extends JPanel {
             if (SwingUtilities.isLeftMouseButton(e)) {
                 for (int i = 0; i < labels.size(); i++) {
                     if (src == labels.get(i)) {
-                        Console.log("You clicked" + i);
                         JetMenu.main.blkView.loadVObject(objects.get(i));
                     }
                 }

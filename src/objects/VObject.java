@@ -1,19 +1,17 @@
 package objects;
 
 import java.util.ArrayList;
-
-import gui.Console;
 /**
  * <p>
  * Basic game object for the engine. Contains a list of all
  * components attached to the object and properties.
  * </p>
- * 
+ *
  * @author Xeltide
  * @version 0.2a
  */
 public class VObject {
-    
+
     private String name;
     private BlockBuilder builder;
     /**
@@ -21,7 +19,7 @@ public class VObject {
      * VObject constructor sets name and creates a BlockBuilder for each
      * object. Every object is given a LocRot block by default.
      * </p>
-     * 
+     *
      * @param name of the object
      */
     public VObject(String name) {
@@ -31,7 +29,7 @@ public class VObject {
     }
     /**
      * Returns the ArrayList of blocks attached to the VObject.
-     * 
+     *
      * @return ArrayList<Block>
      */
     public ArrayList<Block> getObjBlk() {
@@ -39,10 +37,14 @@ public class VObject {
     }
     /**
      * Returns the name of the object.
-     * 
+     *
      * @return String name
      */
     public String getName() {
         return name;
+    }
+
+    public void addBlock(Block newBlock) {
+        builder.newBlock(newBlock);
     }
 }
