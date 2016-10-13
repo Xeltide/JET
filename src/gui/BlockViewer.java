@@ -6,12 +6,10 @@ import java.util.ArrayList;
 
 import javax.swing.JButton;
 import javax.swing.JLabel;
-import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 
 import net.miginfocom.swing.MigLayout;
 import objects.Block;
-import objects.BlockType;
 import objects.VObject;
 
 /**
@@ -43,14 +41,15 @@ public class BlockViewer extends JPanel {
                 if (selectedObject == null) {
                     return;
                 }
-                BlockType type = (BlockType) JOptionPane.showInputDialog(null, "Choose one", "Add Component", JOptionPane.PLAIN_MESSAGE, null, BlockType.values(), 1);
-                if (type == null) {
-                    return;
-                }
-                Block block = type.getNewInstance();
-                selectedObject.addBlock(block);
-                loadVObject(selectedObject);
-                revalidate();
+//                BlockType type = (BlockType) JOptionPane.showInputDialog(null, "Choose one", "Add Component", JOptionPane.PLAIN_MESSAGE, null, BlockType.values(), 1);
+//                if (type == null) {
+//                    return;
+//                }
+//                Block block = type.getNewInstance();
+//                selectedObject.addBlock(block);
+//                loadVObject(selectedObject);
+//                revalidate();
+                new AddBlockFrame(addBlockButton, selectedObject);
             }
         });
     }
