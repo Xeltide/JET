@@ -11,12 +11,12 @@ import gui.Console;
 public class Renderer2D extends Block {
 
     private BufferedImage img;
-    
+
     Renderer2D() {
-        super("Renderer2D");
+        super(BlockType.RENDERER_2D);
         img = null;
     }
-    
+
     void setImg(String location) {
         try {
             img = ImageIO.read(new File(location));

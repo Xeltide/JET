@@ -23,19 +23,7 @@ abstract public class Block {
         enabled = true;
         this.type = type;
     }
-    /**
-     * <p>
-     * Default constructor for block.
-     * Sets enabled to true and changed to false.
-     * </p>
-     *
-     * @param name String
-     */
-    Block(String name) {
-        changed = false;
-        enabled = true;
-        this.name = name;
-    }
+
     /**
      * Sets the changed flag.
      *
