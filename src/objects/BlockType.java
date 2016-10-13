@@ -35,4 +35,9 @@ public enum BlockType {
         return block;
     }
 
+    @Override
+    public String toString() {
+        return name;
+    }
+
 }
