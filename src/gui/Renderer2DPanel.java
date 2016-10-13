@@ -46,6 +46,7 @@ public class Renderer2DPanel extends BlockPanel {
                 rend.setImg(imgLink.getText());
                 obj.setBlockByType(BlockType.RENDERER_2D, rend);
                 JetMenu.main.objH.setVObject(obj.getName(), obj);
+                JetMenu.main.blkView.loadVObject(obj);
             }
         });
         imgLink.setText(rend.getImg());
