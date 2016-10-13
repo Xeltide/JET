@@ -1,6 +1,8 @@
 package gui;
 
 import java.awt.Color;
+import java.awt.event.KeyAdapter;
+import java.awt.event.KeyEvent;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.util.ArrayList;
@@ -32,6 +34,7 @@ public class ObjectHierarchy extends JPanel {
     private JLabel title = new JLabel("Hierarchy");
     private ArrayList<JLabel> labels;
     private ObjectHierarchyMouseAdapter adapter;
+    private int currentIndex;
 
     ObjectHierarchy() {
         setBorder(BorderFactory.createLineBorder(Color.black));
@@ -44,12 +47,15 @@ public class ObjectHierarchy extends JPanel {
         objectBox.setLayout(new MigLayout("insets 0, wrap 1",
                 "0[grow, fill]0",
                 "0[0]0"));
-        objectBox.setBackground(Color.WHITE);
         adapter = new ObjectHierarchyMouseAdapter();
+        objectBox.setBackground(Color.WHITE);
+        objectBox.addMouseListener(adapter);
+        objectBox.addKeyListener(new KeyboardAdapter());
         add(panelBox);
         panelBox.add(title);
         panelBox.add(objectList);
         labels = new ArrayList<JLabel>();
+
     }
 
     /**
@@ -61,22 +67,78 @@ public class ObjectHierarchy extends JPanel {
 
         @Override
         public void mouseReleased(MouseEvent e) {
-            JLabel src = (JLabel) e.getSource();
+            objectBox.requestFocus();
+            Object src = e.getSource();
             if (SwingUtilities.isLeftMouseButton(e)) {
-                for (int i = 0; i < labels.size(); i++) {
-                    if (src == labels.get(i)) {
-                        labels.get(i).setOpaque(true);
-                        labels.get(i).setBackground(PresetColors.SELECT_COLOR);
-                        JetMenu.main.blkView.loadVObject(objects.get(i));
-                    } else {
-                        labels.get(i).setOpaque(false);
-                        labels.get(i).setBackground(Color.WHITE);
-                    }
+                if (src instanceof JLabel) {
+                    JLabel label = (JLabel) e.getSource();
+                    selectLabel(label);
                 }
-                revalidate();
             }
         }
 
+    }
+
+    private void selectLabel(int i) {
+        if (labels.size() < 1) {
+            return;
+        }
+        selectLabel(labels.get(i));
+    }
+
+    private void selectLabel(JLabel label) {
+        for (int i = 0; i < labels.size(); i++) {
+            if (label == labels.get(i)) {
+                labels.get(i).setOpaque(true);
+                labels.get(i).setBackground(PresetColors.SELECT_COLOR);
+                JetMenu.main.blkView.loadVObject(objects.get(i));
+                currentIndex = i;
+            } else {
+                labels.get(i).setOpaque(false);
+                labels.get(i).setBackground(Color.WHITE);
+            }
+        }
+        revalidate();
+    }
+
+    /**
+     * <p>KeyboardAdapter.</p>
+     * @author Stephen Cheng
+     * @version 0.1a
+     */
+    private class KeyboardAdapter extends KeyAdapter {
+
+        @Override
+        public void keyReleased(KeyEvent e) {
+            int newIndex = currentIndex;
+            switch (e.getKeyCode()) {
+                case KeyEvent.VK_UP:
+                    newIndex--;
+                    break;
+                case KeyEvent.VK_DOWN:
+                    newIndex++;
+                    break;
+                case KeyEvent.VK_DELETE:
+                    if (currentIndex < objects.size()) {
+                        deleteVObject(currentIndex);
+                    }
+                    break;
+                default:
+                    break;
+            }
+            newIndex = Math.max(0, newIndex);
+            newIndex = Math.min(newIndex, labels.size() - 1);
+            selectLabel(newIndex);
+        }
+
+    }
+
+    private void deleteVObject(int i) {
+        objectBox.remove(labels.get(i));
+        labels.remove(i);
+        objects.remove(i);
+        revalidate();
+        repaint();
     }
 
     public void newObject() {
@@ -111,7 +173,7 @@ public class ObjectHierarchy extends JPanel {
         objectBox.add(label);
         labels.add(label);
     }
-    
+
     public void setVObject(String name, VObject newObj) {
         for (int i = 0; i < objects.size(); i++) {
             if (objects.get(i).getName().equals(newObj.getName())) {
