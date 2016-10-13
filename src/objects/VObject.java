@@ -43,11 +43,28 @@ public class VObject {
     public String getName() {
         return name;
     }
-
+    /**
+     * Sets the name of the VObject.
+     * 
+     * @param newName String name
+     */
+    public void setName(String newName) {
+        name = newName;
+    }
+    /**
+     * Adds new block to the BlockBuilder.
+     * 
+     * @param newBlock Block to add
+     */
     public void addBlock(Block newBlock) {
         builder.newBlock(newBlock);
     }
-    
+    /**
+     * Returns the block base on enum type.
+     * 
+     * @param type enum of accepted types
+     * @return Block matching type
+     */
     public Block getBlockByType(BlockType type) {
         return builder.getBlockByType(type);
     }
