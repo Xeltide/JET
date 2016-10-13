@@ -5,6 +5,7 @@ import java.awt.Graphics;
 import java.awt.Point;
 import java.awt.event.ComponentAdapter;
 import java.awt.event.ComponentEvent;
+import java.awt.image.BufferedImage;
 
 import javax.swing.JLabel;
 import javax.swing.JPanel;
@@ -14,6 +15,7 @@ import objects.BlockType;
 import objects.LocRot;
 import objects.Renderer2D;
 import objects.VObject;
+import objects.Vector2;
 
 /**
  * <p>SceneViewer.</p>
@@ -25,7 +27,7 @@ public class RoomViewer extends JPanel {
     int radius = 5;
     private JPanel room;
     private int viewHeight = 200;
-    private int viewWidth;
+    private int viewWidth = 200;
     private Point cameraPos = new Point(0, 0);
     float screenToWorldRatio;
     
@@ -35,8 +37,6 @@ public class RoomViewer extends JPanel {
                 "0[grow, fill]0",
                 "0[][grow, fill]0"));
         add(new JLabel("RoomViewer"));
-        viewWidth = viewHeight * (room.getWidth() / room.getHeight());
-        screenToWorldRatio = 1.0f * room.getWidth() / viewWidth;
         room = new JPanel(){
             @Override
             public void paintComponent(Graphics g) {
@@ -46,8 +46,10 @@ public class RoomViewer extends JPanel {
                     LocRot loc = (LocRot) vObj.getBlockByType(BlockType.LOC_ROT);
                     g.setColor(Color.DARK_GRAY);
                     Renderer2D ren = (Renderer2D) vObj.getBlockByType(BlockType.RENDERER_2D);
+                    Point p = worldToScreenCoordinates(loc.getVector());
                     if (ren != null && ren.getBufImg() != null) {
-                        g.drawImage(ren.getBufImg(), (int)loc.x(), (int)loc.y(), null);
+                        BufferedImage img = ren.getBufImg();
+                        g.drawImage(img, p.x, p.y, (int) screenToWorldRatio * img.getWidth(), (int) screenToWorldRatio * img.getHeight(),null);
                     } else {
                         g.fillOval((int)loc.x() - radius, (int)loc.y() - radius, 2*radius, 2*radius);
                     }
@@ -55,6 +57,8 @@ public class RoomViewer extends JPanel {
                 }
             }
         };
+//        viewWidth = viewHeight * room.getWidth() / room.getHeight();
+//        screenToWorldRatio = 1.0f * room.getWidth() / viewWidth;
         room.addComponentListener(new ComponentAdapter() {
             @Override
             public void componentResized(ComponentEvent e) {
@@ -65,14 +69,13 @@ public class RoomViewer extends JPanel {
         room.setBackground(PresetColors.BG_COLOR);
         add(room);
     }
-    
-    @SuppressWarnings("unused")
-    private Point worldToScreenCoordinates(Point p) {
-        int x = cameraPos.x + viewWidth / 2 + p.x;
-        int y = cameraPos.y + viewHeight / 2 + p.y;
+
+    private Point worldToScreenCoordinates(Vector2 p) {
+        float x = cameraPos.x + viewWidth / 2 + p.x();
+        float y = cameraPos.y + viewHeight / 2 + p.y();
         x *= screenToWorldRatio;
         y *= screenToWorldRatio;
-        return new Point(x, y);
+        return new Point((int) x, (int) y);
     }
 
 }
