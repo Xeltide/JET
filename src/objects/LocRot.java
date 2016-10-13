@@ -48,6 +48,10 @@ public class LocRot extends Block {
     public float y() {
         return v.y();
     }
+    
+    public Vector2 getVector() {
+        return v;
+    }
 
     @Override
     public BlockPanel getNewPanel(VObject obj) {
