@@ -53,7 +53,6 @@ public class BlockViewer extends JPanel {
                 revalidate();
             }
         });
-        add(addBlockButton);
     }
 
     public void loadVObject(VObject vObj) {
@@ -67,6 +66,7 @@ public class BlockViewer extends JPanel {
             blockPanels.add(temp);
             viewer.add(temp);
         }
+        viewer.add(addBlockButton, "x 0.5al, grow 0 0");
         repaint();
     }
 
