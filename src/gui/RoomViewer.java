@@ -26,7 +26,7 @@ public class RoomViewer extends JPanel {
 
     int radius = 5;
     private JPanel room;
-    private int viewHeight = 1000;
+    private int viewHeight = 500;
     private int viewWidth = 200;
     private Point cameraPos = new Point(0, 0);
     float screenToWorldRatio;
@@ -48,21 +48,15 @@ public class RoomViewer extends JPanel {
                     Renderer2D ren = (Renderer2D) vObj.getBlockByType(BlockType.RENDERER_2D);
                     Point p = worldToScreenCoordinates(loc.getVector());
                     if (ren != null && ren.getBufImg() != null) {
-                        System.out.println("something tried to draw, but you fucked it up");
                         BufferedImage img = ren.getBufImg();
-                        System.out.println(p);
-                        System.out.println((int) screenToWorldRatio * img.getWidth());
-                        System.out.println((int) screenToWorldRatio * img.getHeight());
                         g.drawImage(img, p.x, p.y, (int) screenToWorldRatio * img.getWidth(), (int) screenToWorldRatio * img.getHeight(),null);
                     } else {
-                        g.fillOval((int)loc.x() - radius, (int)loc.y() - radius, 2*radius, 2*radius);
+                        g.fillOval((int)p.x - radius, (int)p.y - radius, 2*radius, 2*radius);
                     }
 
                 }
             }
         };
-//        viewWidth = viewHeight * room.getWidth() / room.getHeight();
-//        screenToWorldRatio = 1.0f * room.getWidth() / viewWidth;
         room.addComponentListener(new ComponentAdapter() {
             @Override
             public void componentResized(ComponentEvent e) {
