@@ -36,4 +36,12 @@ public class LocRot extends Block {
     LocRot() {
         this(new Vector2(0,0));
     }
+    
+    public float x() {
+        return v.x();
+    }
+    
+    public float y() {
+        return v.y();
+    }
 }

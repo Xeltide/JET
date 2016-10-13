@@ -25,7 +25,7 @@ public class Vector2 {
      * 
      * @return float of x
      */
-    private float x() {
+    public float x() {
         return this.x;
     }
     /**
@@ -33,7 +33,7 @@ public class Vector2 {
      * 
      * @return float of y.
      */
-    private float y() {
+    public float y() {
         return this.y;
     }
 }
