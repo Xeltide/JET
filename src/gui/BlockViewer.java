@@ -82,8 +82,6 @@ public class BlockViewer extends JPanel {
             }
         }
         viewer.add(addBlockButton, "x 0.5al, grow 0 0");
-        add(sprite);
-
         repaint();
     }
 
