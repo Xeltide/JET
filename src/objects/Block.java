@@ -16,7 +16,6 @@ abstract public class Block {
      */
     private boolean enabled;
     private BlockType type;
-    private String name;
 
     Block(BlockType type) {
         changed = false;

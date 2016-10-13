@@ -24,25 +24,32 @@ public class BlockViewer extends JPanel {
         this.setLayout(new MigLayout("insets 0, wrap 1",
             "0[100%, grow, fill]0",
             "0[][grow, fill]0"));
+        blockPanels = new ArrayList<BlockPanel>();
         viewer = new JPanel(new MigLayout("insets 0, wrap 1"));
         add(new JLabel("BlockViewer"));
         add(viewer);
     }
 
     public void loadVObject(VObject vObj) {
-        blockPanels = new ArrayList<BlockPanel>();
+        blockPanels.clear();
         viewer.removeAll();
-        viewer.add(new JLabel(vObj.getName()));
+        JLabel name = new JLabel(vObj.getName());
+        viewer.add(name);
         for (Block block : vObj.getObjBlk()) {
             BlockPanel temp = null;
             switch (block.getType()) {
             case LOC_ROT:
                 temp = new LocRotPanel((LocRot) block);
                 break;
+            case RENDERER_2D:
+                break;
+            default:
+                break;
             }
             blockPanels.add(temp);
             viewer.add(temp);
         }
+        repaint();
     }
 
 }

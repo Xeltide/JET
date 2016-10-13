@@ -67,9 +67,9 @@ public class ObjectHierarchy extends JPanel {
                     if (src == labels.get(i)) {
                         Console.log("You clicked" + i);
                         JetMenu.main.blkView.loadVObject(objects.get(i));
-                        revalidate();
                     }
                 }
+                revalidate();
             }
         }
 
@@ -104,6 +104,7 @@ public class ObjectHierarchy extends JPanel {
     public void addToBoxList(String name) {
         JLabel label = new JLabel(name);
         label.addMouseListener(adapter);
+        label.setOpaque(true);
         objectBox.add(label);
         labels.add(label);
     }
