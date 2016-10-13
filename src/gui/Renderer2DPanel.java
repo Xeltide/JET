@@ -29,6 +29,7 @@ public class Renderer2DPanel extends BlockPanel {
 
     private JPanel panel;
     private JTextField imgLink;
+    private JTextField order;
 
     public Renderer2DPanel(VObject obj) {
         super(BlockType.RENDERER_2D);
@@ -56,12 +57,35 @@ public class Renderer2DPanel extends BlockPanel {
                 changeImage();
             }
         });
+        order = new JTextField(200);
+        order.addKeyListener(new KeyAdapter() {
+            
+            @Override
+            public void keyReleased(KeyEvent e) {
+                if (e.getKeyCode() == KeyEvent.VK_ENTER) {
+                    requestFocusInWindow();
+                    revalidate();
+                }
+            }
+        });
+        order.addFocusListener(new FocusAdapter() {
+            
+            @Override
+            public void focusLost(FocusEvent e) {
+                rend.setOrder(Integer.parseInt(order.getText()));
+                obj.setBlockByType(BlockType.RENDERER_2D, rend);
+                JetMenu.main.objH.setVObject(obj.getName(), obj);
+            }
+        });
+        order.setText("" + rend.getOrder());
         imgLink.setText(rend.getImg());
         panel.add(new JLabel("File:"));
         panel.add(imgLink);
         JButton browse = new JButton("Browse");
         browse.addActionListener(new BrowserListener());
         panel.add(browse);
+        panel.add(new JLabel("Order:"));
+        panel.add(order);
         add(panel, "newline");
     }
 
