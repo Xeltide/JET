@@ -49,9 +49,9 @@ public class RoomViewer extends JPanel {
                     Point p = worldToScreenCoordinates(loc.getVector());
                     if (ren != null) {
                         BufferedImage img = ren.getImage();
-                        if (img != null {
+                        if (img != null) {
                             g.drawImage(img, p.x, p.y, (int) screenToWorldRatio * img.getWidth(), (int) screenToWorldRatio * img.getHeight(),null);
-                        })
+                        }
                     }
 
                 }
