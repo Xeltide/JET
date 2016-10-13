@@ -48,6 +48,7 @@ public class LocRotPanel extends BlockPanel {
                 locRot = new LocRot(Float.parseFloat(xCoord.getText()), locRot.y());
                 obj.setBlockByType(BlockType.LOC_ROT, locRot);
                 Main.main.objH.setVObject(obj.getName(), obj);
+                Main.main.repaint();
             }
 
         });
@@ -71,6 +72,7 @@ public class LocRotPanel extends BlockPanel {
                 locRot = new LocRot(locRot.x(), Float.parseFloat(yCoord.getText()));
                 obj.setBlockByType(BlockType.LOC_ROT, locRot);
                 Main.main.objH.setVObject(obj.getName(), obj);
+                Main.main.repaint();
             }
 
         });

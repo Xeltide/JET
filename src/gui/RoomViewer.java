@@ -2,6 +2,7 @@ package gui;
 
 import java.awt.Color;
 import java.awt.Graphics;
+import java.io.IOException;
 
 import javax.swing.JLabel;
 import javax.swing.JPanel;
@@ -34,11 +35,12 @@ public class RoomViewer extends JPanel {
                 g.setColor(Color.BLACK);
                 for (VObject vObj : Main.main.objH.getVObjects()) {
                     LocRot loc = (LocRot) vObj.getBlockByType(BlockType.LOC_ROT);
-                    g.setColor(Color.BLACK);
-                    g.fillOval((int)loc.x() - radius, (int)loc.y() - radius, 2*radius, 2*radius);
+                    g.setColor(Color.DARK_GRAY);
                     Renderer2D ren = (Renderer2D) vObj.getBlockByType(BlockType.RENDERER_2D);
-                    if (ren != null) {
-                        g.drawImage(ren.getImage(), (int)loc.x(), (int)loc.y(), null);
+                    if (ren != null && ren.getBufImg() != null) {
+                        g.drawImage(ren.getBufImg(), (int)loc.x(), (int)loc.y(), null);
+                    } else {
+                        g.fillOval((int)loc.x() - radius, (int)loc.y() - radius, 2*radius, 2*radius);
                     }
 
                 }

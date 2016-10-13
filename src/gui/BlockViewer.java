@@ -77,7 +77,7 @@ public class BlockViewer extends JPanel {
             viewer.add(temp);
             if (block instanceof Renderer2D) {
                 Renderer2D tmp = (Renderer2D) block;
-                sprite.updateImage(tmp.getImage());
+                sprite.updateImage(tmp.getBufImg());
                 sprite.setVisible(true);
             }
         }
