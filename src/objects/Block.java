@@ -15,7 +15,14 @@ abstract public class Block {
      * </p>
      */
     private boolean enabled;
+    private BlockType type;
     private String name;
+
+    Block(BlockType type) {
+        changed = false;
+        enabled = true;
+        this.type = type;
+    }
     /**
      * <p>
      * Default constructor for block.
@@ -51,7 +58,11 @@ abstract public class Block {
      * @return String name
      */
     public String getName() {
-        return name;
+        return type.getName();
+    }
+
+    public BlockType getType() {
+        return type;
     }
 
 }

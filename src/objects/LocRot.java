@@ -1,7 +1,7 @@
 package objects;
 /**
  * Basic LocRot with only Location supported so far.
- * 
+ *
  * @author Xeltide
  * @version 0.1a
  */
@@ -11,16 +11,16 @@ public class LocRot extends Block {
     /**
      * Default constructor for LocRot that sets the Location
      * to a vector.
-     * 
+     *
      * @param vector
      */
     LocRot(Vector2 vector) {
-        super("LocRot");
+        super(BlockType.LOC_ROT);
         v = vector;
     }
     /**
      * Overloaded constructor to take in two floats.
-     * 
+     *
      * @param x float of x
      * @param y float of y
      */
