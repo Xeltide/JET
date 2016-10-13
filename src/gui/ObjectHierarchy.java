@@ -81,6 +81,9 @@ public class ObjectHierarchy extends JPanel {
     }
 
     private void selectLabel(int i) {
+        if (labels.size() < 1) {
+            return;
+        }
         selectLabel(labels.get(i));
     }
 
@@ -116,6 +119,11 @@ public class ObjectHierarchy extends JPanel {
                 case KeyEvent.VK_DOWN:
                     newIndex++;
                     break;
+                case KeyEvent.VK_DELETE:
+                    if (currentIndex < objects.size()) {
+                        deleteVObject(currentIndex);
+                    }
+                    break;
                 default:
                     break;
             }
@@ -124,6 +132,14 @@ public class ObjectHierarchy extends JPanel {
             selectLabel(newIndex);
         }
 
+    }
+
+    private void deleteVObject(int i) {
+        objectBox.remove(labels.get(i));
+        labels.remove(i);
+        objects.remove(i);
+        revalidate();
+        repaint();
     }
 
     public void newObject() {
