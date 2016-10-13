@@ -24,6 +24,9 @@ import javax.xml.transform.stream.StreamResult;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 
+import objects.Block;
+import objects.VObject;
+
 /**
  * <p>FileMenu.</p>
  * @author Stephen Cheng
@@ -152,7 +155,7 @@ public class FileMenu extends JetMenu {
         if (v == JFileChooser.APPROVE_OPTION) {
             File file = saveAsProject.getSelectedFile();
             saveProject.setSelectedFile(file);
-            System.out.println("Save a new file");
+            createProjectXml(file);
         }
     }
 
@@ -180,11 +183,38 @@ public class FileMenu extends JetMenu {
             File file = saveAsRoom.getSelectedFile();
             saveRoom.setSelectedFile(file);
             System.out.println("Save a new room");
-            createXml(saveRoom.getSelectedFile());
+            createRoomXml(file);
         }
     }
 
-    private void createXml(File file) {
+    private void createProjectXml(File file) {
+        DocumentBuilderFactory factory = DocumentBuilderFactory.newInstance();
+        DocumentBuilder builder = null;
+        try {
+            builder = factory.newDocumentBuilder();
+        } catch (ParserConfigurationException e) {
+            // TODO Auto-generated catch block
+            e.printStackTrace();
+        }
+        Document doc = builder.newDocument();
+        Element rootElement = doc.createElement("Project");
+        doc.appendChild(rootElement);
+
+        for (VObject vObj : JetMenu.main.objH.getVObjects()) {
+            Element vObjElement = doc.createElement("VObject");
+            vObjElement.setAttribute("name", vObj.getName());
+            rootElement.appendChild(vObjElement);
+
+            for (Block block : vObj.getObjBlk()) {
+                Element blkElement = doc.createElement("Block");
+                blkElement.setTextContent(block.getName());
+                vObjElement.appendChild(blkElement);
+            }
+        }
+        writeXml(doc, file);
+    }
+
+    private void createRoomXml(File file) {
         DocumentBuilderFactory factory = DocumentBuilderFactory.newInstance();
         DocumentBuilder builder = null;
         try {
@@ -196,37 +226,38 @@ public class FileMenu extends JetMenu {
         Document doc = builder.newDocument();
         Element rootElement = doc.createElement("Room");
         doc.appendChild(rootElement);
-        
+
         Element dim = doc.createElement("Dimensions");
         dim.setAttribute("width", "50");
         dim.setAttribute("height", "50");
         rootElement.appendChild(dim);
-        
-
-        // write the content into xml file
-        TransformerFactory transformerFactory = TransformerFactory.newInstance();
-        Transformer transformer = null;
-        try {
-            transformer = transformerFactory.newTransformer();
-        } catch (TransformerConfigurationException e1) {
-            e1.printStackTrace();
-        }
-        DOMSource source = new DOMSource(doc);
-        StreamResult result = new StreamResult(file);
-
-        // Output to console for testing
-        // StreamResult result = new StreamResult(System.out);
-
-        try {
-            transformer.transform(source, result);
-        } catch (TransformerException e) {
-            // TODO Auto-generated catch block
-            e.printStackTrace();
-        }
-
-        System.out.println("File saved!");
+        writeXml(doc, file);
     }
-    
+
+    private void writeXml(Document doc, File file) {
+        // write the content into xml file
+           TransformerFactory transformerFactory = TransformerFactory.newInstance();
+           Transformer transformer = null;
+           try {
+               transformer = transformerFactory.newTransformer();
+           } catch (TransformerConfigurationException e1) {
+               e1.printStackTrace();
+           }
+           DOMSource source = new DOMSource(doc);
+           StreamResult result = new StreamResult(file);
+
+           // Output to console for testing
+           // StreamResult result = new StreamResult(System.out);
+
+           try {
+               transformer.transform(source, result);
+           } catch (TransformerException e) {
+               // TODO Auto-generated catch block
+               e.printStackTrace();
+           }
+           System.out.println("File saved!");
+       }
+
     public void exit() {
         int v = JOptionPane.showConfirmDialog(null, "Are you sure you want to exit without saving?");
         switch (v) {

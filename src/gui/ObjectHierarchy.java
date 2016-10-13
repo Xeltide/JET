@@ -18,13 +18,13 @@ import objects.VObject;
  * Panel for object hierarchy. Deals with creating new objects with
  * unique namespaces.
  * </p>
- * 
+ *
  * @author Xeltide
  * @version 0.1a
  */
 @SuppressWarnings("serial")
 public class ObjectHierarchy extends JPanel {
-    
+
     private ArrayList<VObject> objects = new ArrayList<VObject>();
     private JPanel panelBox = new JPanel();
     private JPanel objectBox = new JPanel();
@@ -32,7 +32,7 @@ public class ObjectHierarchy extends JPanel {
     private JLabel title = new JLabel("Hierarchy");
     private ArrayList<JLabel> labels;
     private ObjectHierarchyMouseAdapter adapter;
-    
+
     ObjectHierarchy() {
         setBorder(BorderFactory.createLineBorder(Color.black));
         this.setLayout(new MigLayout("insets 0, wrap 1",
@@ -51,14 +51,14 @@ public class ObjectHierarchy extends JPanel {
         panelBox.add(objectList);
         labels = new ArrayList<JLabel>();
     }
-    
+
     /**
      * <p>ObjectHierarchyMouseAdapter.</p>
      * @author Stephen Cheng
      * @version 0.1a
      */
     private class ObjectHierarchyMouseAdapter extends MouseAdapter {
-        
+
         @Override
         public void mouseReleased(MouseEvent e) {
             JLabel src = (JLabel) e.getSource();
@@ -71,9 +71,9 @@ public class ObjectHierarchy extends JPanel {
                 }
             }
         }
-        
+
     }
-    
+
     public void newObject() {
         String newName;
         int counter = 0;
@@ -95,7 +95,11 @@ public class ObjectHierarchy extends JPanel {
         objects.add(new VObject(newName));
         addToBoxList(newName);
     }
-    
+
+    public ArrayList<VObject> getVObjects() {
+        return objects;
+    }
+
     public void addToBoxList(String name) {
         JLabel label = new JLabel(name);
         label.addMouseListener(adapter);
