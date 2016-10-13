@@ -2,6 +2,9 @@ package gui;
 
 import java.awt.Color;
 import java.awt.Graphics;
+import java.awt.Point;
+import java.awt.event.ComponentAdapter;
+import java.awt.event.ComponentEvent;
 
 import javax.swing.JLabel;
 import javax.swing.JPanel;
@@ -19,15 +22,21 @@ import objects.VObject;
  */
 public class RoomViewer extends JPanel {
 
-    private JPanel scene;
     int radius = 5;
-
+    private JPanel room;
+    private int viewHeight = 200;
+    private int viewWidth;
+    private Point cameraPos = new Point(0, 0);
+    float screenToWorldRatio;
+    
     RoomViewer() {
         this.setLayout(new MigLayout("insets 0, wrap 1",
                 "0[grow, fill]0",
                 "0[][grow, fill]0"));
         add(new JLabel("RoomViewer"));
-        scene = new JPanel(){
+        viewWidth = viewHeight * room.getWidth() / room.getHeight();
+        screenToWorldRatio = 1.0f * room.getWidth() / viewWidth;
+        room = new JPanel(){
             @Override
             public void paintComponent(Graphics g) {
                 g.clearRect(0, 0, this.getWidth(), this.getHeight());
@@ -44,8 +53,23 @@ public class RoomViewer extends JPanel {
                 }
             }
         };
-        scene.setBackground(PresetColors.BG_COLOR);
-        add(scene);
+        room.addComponentListener(new ComponentAdapter() {
+            @Override
+            public void componentResized(ComponentEvent e) {
+                viewWidth = viewHeight * room.getWidth() / room.getHeight();
+                repaint();
+            }
+        });
+        room.setBackground(PresetColors.BG_COLOR);
+        add(room);
+    }
+    
+    private Point worldToScreenCoordinates(Point p) {
+        int x = cameraPos.x + viewWidth / 2 + p.x;
+        int y = cameraPos.y + viewHeight / 2 + p.y;
+        x *= screenToWorldRatio;
+        y *= screenToWorldRatio;
+        return new Point(x, y);
     }
 
 }
