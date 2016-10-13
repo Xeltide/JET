@@ -18,11 +18,10 @@ public class SpritePreviewPanel extends JPanel {
 
     BufferedImage img;
 
-    public SpritePreviewPanel(BufferedImage img) {
+    public SpritePreviewPanel() {
         setLayout(new MigLayout("insets 0, wrap 1",
                 "0[grow, fill]0",
                 "0[][grow, fill]0"));
-        this.img = img;
         add(new JLabel("Sprite Preview"));
         add(new JPanel(){
             @Override
@@ -37,6 +36,10 @@ public class SpritePreviewPanel extends JPanel {
                 g2.drawImage(img, 0, 0, null);
             }
         });
+    }
+
+    public void updateImage(BufferedImage img) {
+        this.img = img;
     }
 
 }

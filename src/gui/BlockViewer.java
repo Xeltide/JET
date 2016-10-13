@@ -27,6 +27,7 @@ public class BlockViewer extends JPanel {
     private ArrayList<BlockPanel> blockPanels;
     private JButton addBlockButton;
     private VObject selectedObject;
+    private SpritePreviewPanel sprite;
 
     BlockViewer() {
         blockPanels = new ArrayList<BlockPanel>();
@@ -44,6 +45,10 @@ public class BlockViewer extends JPanel {
         });
         add(new JLabel("BlockViewer"));
         add(viewer);
+
+        sprite = new SpritePreviewPanel();
+        sprite.setVisible(false);
+        add(sprite);
 
         addBlockButton = new JButton("Add Block");
         addBlockButton.addActionListener(new ActionListener(){
@@ -65,19 +70,20 @@ public class BlockViewer extends JPanel {
         viewer.removeAll();
         JLabel name = new JLabel(vObj.getName());
         viewer.add(name);
-        SpritePreviewPanel sprite = null;
+        sprite.setVisible(false);
         for (Block block : vObj.getObjBlk()) {
             BlockPanel temp = block.getNewPanel(vObj);
             blockPanels.add(temp);
             viewer.add(temp);
             if (block instanceof Renderer2D) {
                 Renderer2D tmp = (Renderer2D) block;
-                sprite = new SpritePreviewPanel(tmp.getImage());
+                sprite.updateImage(tmp.getImage());
+                sprite.setVisible(true);
             }
         }
         viewer.add(addBlockButton, "x 0.5al, grow 0 0");
         add(sprite);
-        
+
         repaint();
     }
 
