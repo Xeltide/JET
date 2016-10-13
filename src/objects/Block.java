@@ -15,23 +15,18 @@ abstract public class Block {
      * </p>
      */
     private boolean enabled;
+    private BlockType type;
     private String name;
-    /**
-     * <p>
-     * Default constructor for block.
-     * Sets enabled to true and changed to false.
-     * </p>
-     * 
-     * @param name String
-     */
-    Block(String name) {
+
+    Block(BlockType type) {
         changed = false;
         enabled = true;
-        this.name = name;
+        this.type = type;
     }
+
     /**
      * Sets the changed flag.
-     * 
+     *
      * @param val flag changed
      */
     void setChanged(boolean val) {
@@ -39,7 +34,7 @@ abstract public class Block {
     }
     /**
      * Sets the enabled flag.
-     * 
+     *
      * @param val flag enabled
      */
     void setEnabled(boolean val) {
@@ -47,11 +42,15 @@ abstract public class Block {
     }
     /**
      * Returns the name of the block.
-     * 
+     *
      * @return String name
      */
     public String getName() {
-        return name;
+        return type.getName();
+    }
+
+    public BlockType getType() {
+        return type;
     }
 
 }
