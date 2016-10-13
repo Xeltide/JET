@@ -155,7 +155,6 @@ public class FileMenu extends JetMenu {
         if (v == JFileChooser.APPROVE_OPTION) {
             File file = saveAsProject.getSelectedFile();
             saveProject.setSelectedFile(file);
-            createProjectXml(file);
         }
     }
 
@@ -187,7 +186,7 @@ public class FileMenu extends JetMenu {
         }
     }
 
-    private void createProjectXml(File file) {
+    private void createRoomXml(File file) {
         DocumentBuilderFactory factory = DocumentBuilderFactory.newInstance();
         DocumentBuilder builder = null;
         try {
@@ -211,26 +210,6 @@ public class FileMenu extends JetMenu {
                 vObjElement.appendChild(blkElement);
             }
         }
-        writeXml(doc, file);
-    }
-
-    private void createRoomXml(File file) {
-        DocumentBuilderFactory factory = DocumentBuilderFactory.newInstance();
-        DocumentBuilder builder = null;
-        try {
-            builder = factory.newDocumentBuilder();
-        } catch (ParserConfigurationException e) {
-            // TODO Auto-generated catch block
-            e.printStackTrace();
-        }
-        Document doc = builder.newDocument();
-        Element rootElement = doc.createElement("Room");
-        doc.appendChild(rootElement);
-
-        Element dim = doc.createElement("Dimensions");
-        dim.setAttribute("width", "50");
-        dim.setAttribute("height", "50");
-        rootElement.appendChild(dim);
         writeXml(doc, file);
     }
 
