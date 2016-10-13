@@ -26,7 +26,7 @@ public class RoomViewer extends JPanel {
 
     int radius = 5;
     private JPanel room;
-    private int viewHeight = 200;
+    private int viewHeight = 1000;
     private int viewWidth = 200;
     private Point cameraPos = new Point(0, 0);
     float screenToWorldRatio;
@@ -47,7 +47,11 @@ public class RoomViewer extends JPanel {
                     Renderer2D ren = (Renderer2D) vObj.getBlockByType(BlockType.RENDERER_2D);
                     Point p = worldToScreenCoordinates(loc.getVector());
                     if (ren != null && ren.getBufImg() != null) {
+                        System.out.println("something tried to draw, but you fucked it up");
                         BufferedImage img = ren.getBufImg();
+                        System.out.println(p);
+                        System.out.println((int) screenToWorldRatio * img.getWidth());
+                        System.out.println((int) screenToWorldRatio * img.getHeight());
                         g.drawImage(img, p.x, p.y, (int) screenToWorldRatio * img.getWidth(), (int) screenToWorldRatio * img.getHeight(),null);
                     } else {
                         g.fillOval((int)loc.x() - radius, (int)loc.y() - radius, 2*radius, 2*radius);
@@ -62,6 +66,7 @@ public class RoomViewer extends JPanel {
             @Override
             public void componentResized(ComponentEvent e) {
                 viewWidth = viewHeight * room.getWidth() / room.getHeight();
+                screenToWorldRatio = 1f * room.getWidth() / viewWidth;
                 repaint();
             }
         });
@@ -69,12 +74,16 @@ public class RoomViewer extends JPanel {
         add(room);
     }
 
-    private Point worldToScreenCoordinates(Vector2 p) {
-        float x = cameraPos.x + viewWidth / 2 + p.x();
-        float y = cameraPos.y + viewHeight / 2 + p.y();
+    private Point worldToScreenCoordinates(Vector2 v) {
+        float x = cameraPos.x + viewWidth / 2 + v.x();
+        float y = cameraPos.y + viewHeight / 2 + v.y();
         x *= screenToWorldRatio;
         y *= screenToWorldRatio;
-        return new Point((int) x, (int) y);
+        Point p2 = new Point((int) x, (int) y);
+        System.out.println(x);
+        System.out.println(y);
+        System.out.println(p2);
+        return p2;
     }
 
 }
