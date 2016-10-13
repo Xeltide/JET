@@ -50,7 +50,7 @@ abstract public class Block {
      * 
      * @return String name
      */
-    String getName() {
+    public String getName() {
         return name;
     }
 

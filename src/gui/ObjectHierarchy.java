@@ -65,10 +65,14 @@ public class ObjectHierarchy extends JPanel {
             if (SwingUtilities.isLeftMouseButton(e)) {
                 for (int i = 0; i < labels.size(); i++) {
                     if (src == labels.get(i)) {
-                        Console.log("You clicked" + i);
-                        revalidate();
+                        labels.get(i).setOpaque(true);
+                        labels.get(i).setBackground(PresetColors.SELECT_COLOR);
+                    } else {
+                        labels.get(i).setOpaque(false);
+                        labels.get(i).setBackground(Color.WHITE);
                     }
                 }
+                revalidate();
             }
         }
         
