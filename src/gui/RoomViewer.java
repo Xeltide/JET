@@ -43,15 +43,14 @@ public class RoomViewer extends JPanel {
                 g.setColor(Color.BLACK);
                 for (VObject vObj : Main.main.objH.getVObjects()) {
                     LocRot loc = (LocRot) vObj.getBlockByType(BlockType.LOC_ROT);
-                    g.setColor(Color.BLACK);
-                    g.fillOval((int)loc.x() - radius, (int)loc.y() - radius, 2*radius, 2*radius);
+                    g.setColor(Color.DARK_GRAY);
                     Renderer2D ren = (Renderer2D) vObj.getBlockByType(BlockType.RENDERER_2D);
                     Point p = worldToScreenCoordinates(loc.getVector());
-                    if (ren != null) {
-                        BufferedImage img = ren.getImage();
-                        if (img != null) {
-                            g.drawImage(img, p.x, p.y, (int) screenToWorldRatio * img.getWidth(), (int) screenToWorldRatio * img.getHeight(),null);
-                        }
+                    if (ren != null && ren.getBufImg() != null) {
+                        BufferedImage img = ren.getBufImg();
+                        g.drawImage(img, p.x, p.y, (int) screenToWorldRatio * img.getWidth(), (int) screenToWorldRatio * img.getHeight(),null);
+                    } else {
+                        g.fillOval((int)loc.x() - radius, (int)loc.y() - radius, 2*radius, 2*radius);
                     }
 
                 }

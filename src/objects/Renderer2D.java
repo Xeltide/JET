@@ -38,7 +38,7 @@ public class Renderer2D extends Block {
         return link;
     }
 
-    public BufferedImage getImage() {
+    public BufferedImage getBufImg() {
         return img;
     }
 

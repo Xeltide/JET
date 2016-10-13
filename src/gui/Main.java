@@ -21,7 +21,7 @@ public class Main extends JFrame {
     ObjectHierarchy objH;
     RoomViewer scnView;
     BlockViewer blkView;
-    public Console console;
+    public TabbedPanel tabPnl;
 
     public Main() {
         super("Java Engine Tools");
@@ -29,7 +29,7 @@ public class Main extends JFrame {
         objH = new ObjectHierarchy();
         scnView = new RoomViewer();
         blkView = new BlockViewer();
-        console = new Console();
+        tabPnl = new TabbedPanel();
         jmb = new JetMenuBar();
         mainPanel = new JPanel();
         setLayout(new MigLayout("insets 0, wrap 1",
@@ -44,7 +44,7 @@ public class Main extends JFrame {
         mainPanel.add(objH);
         mainPanel.add(scnView);
         mainPanel.add(blkView, "span 1 2");
-        mainPanel.add(console, "newline, span 2");
+        mainPanel.add(tabPnl, "newline, span 2");
 
         add(mainPanel);
 

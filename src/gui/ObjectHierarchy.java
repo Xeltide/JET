@@ -161,6 +161,7 @@ public class ObjectHierarchy extends JPanel {
         } while (match);
         objects.add(new VObject(newName));
         addToBoxList(newName);
+        Main.main.repaint();
     }
 
     public ArrayList<VObject> getVObjects() {

@@ -44,7 +44,7 @@ public class BlockBuilder {
                 return block;
             }
         }
-        Console.log("VObject does not contain this Block.");
+        System.err.println("VObject does not contain this Block.");
         return null;
     }
     

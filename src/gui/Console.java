@@ -30,7 +30,7 @@ public class Console extends JPanel {
         textBox.setLayout(new MigLayout("insets 0, wrap 1",
                 "0[100%, grow, fill]0",
                 "0[]0"));
-        add(new JLabel("Console"));
+        add(new JLabel("Log"));
         textBox.setBackground(Color.WHITE);
         add(pane);
     }
