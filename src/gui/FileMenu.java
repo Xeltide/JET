@@ -79,31 +79,33 @@ public class FileMenu extends JetMenu {
 
         openProjectItem = new JMenuItem("Open");
         openProjectItem.setMnemonic(KeyEvent.VK_O);
-        openProjectItem.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_O, ActionEvent.CTRL_MASK));
         openProjectItem.addActionListener(this);
         add(openProjectItem);
 
         saveProjectItem = new JMenuItem("Save");
         saveProjectItem.setMnemonic(KeyEvent.VK_S);
-        saveProjectItem.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_S, ActionEvent.CTRL_MASK));
         saveProjectItem.addActionListener(this);
         add(saveProjectItem);
 
         saveProjectAsItem = new JMenuItem("Save As");
         saveProjectAsItem.setMnemonic(KeyEvent.VK_A);
-        saveProjectAsItem.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_S, ActionEvent.CTRL_MASK + ActionEvent.ALT_MASK));
         saveProjectAsItem.addActionListener(this);
         add(saveProjectAsItem);
 
+        addSeparator();
+
         openRoomItem = new JMenuItem("Open Room");
+        openRoomItem.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_O, ActionEvent.CTRL_MASK));
         openRoomItem.addActionListener(this);
         add(openRoomItem);
 
         saveRoomItem = new JMenuItem("Save Room");
+        saveRoomItem.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_S, ActionEvent.CTRL_MASK));
         saveRoomItem.addActionListener(this);
         add(saveRoomItem);
 
         saveRoomAsItem = new JMenuItem("Save Room As");
+        saveRoomAsItem.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_S, ActionEvent.CTRL_MASK + ActionEvent.ALT_MASK));
         saveRoomAsItem.addActionListener(this);
         add(saveRoomAsItem);
 
@@ -166,7 +168,7 @@ public class FileMenu extends JetMenu {
         int v = openRoom.showOpenDialog(FileMenu.this);
         if (v == JFileChooser.APPROVE_OPTION) {
             File file = openRoom.getSelectedFile();
-            openRoom.setSelectedFile(file);
+            saveRoom.setSelectedFile(file);
             readRoomXml();
         }
     }
