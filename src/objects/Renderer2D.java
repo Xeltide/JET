@@ -35,7 +35,7 @@ public class Renderer2D extends Block {
             Console.log("Error loading image.");
         }
     }
-    
+
     public String getImg() {
         return link;
     }
@@ -47,18 +47,18 @@ public class Renderer2D extends Block {
     public int getOrder() {
         return order;
     }
-    
+
     public void setOrder(int ord) {
         order = ord;
     }
-    
+
     @Override
     public void readXml(Document doc, Element e) {
         link = e.getElementsByTagName("Path").item(0).getTextContent();
         setImg(link);
-//        order = Integer.parseInt(e.getElementsByTagName("Order").item(0).getTextContent());
+        order = Integer.parseInt(e.getElementsByTagName("Order").item(0).getTextContent());
     }
-    
+
     @Override
     public void writeXml(Document doc, Element e) {
         Element blkElement = doc.createElement("Block");

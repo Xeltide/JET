@@ -25,7 +25,7 @@ public class VObject {
     public VObject(String name) {
         this.name = name;
         builder = new BlockBuilder();
-        builder.newBlock(new LocRot());
+//        builder.newBlock(new LocRot());
     }
     /**
      * Returns the ArrayList of blocks attached to the VObject.
@@ -45,7 +45,7 @@ public class VObject {
     }
     /**
      * Sets the name of the VObject.
-     * 
+     *
      * @param newName String name
      */
     public void setName(String newName) {
@@ -53,7 +53,7 @@ public class VObject {
     }
     /**
      * Adds new block to the BlockBuilder.
-     * 
+     *
      * @param newBlock Block to add
      */
     public void addBlock(Block newBlock) {
@@ -61,14 +61,14 @@ public class VObject {
     }
     /**
      * Returns the block base on enum type.
-     * 
+     *
      * @param type enum of accepted types
      * @return Block matching type
      */
     public Block getBlockByType(BlockType type) {
         return builder.getBlockByType(type);
     }
-    
+
     public void setBlockByType(BlockType type, Block newBlock) {
         builder.setBlockByType(type, newBlock);
     }

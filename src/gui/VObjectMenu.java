@@ -6,6 +6,9 @@ import java.awt.event.KeyEvent;
 import javax.swing.JMenuItem;
 import javax.swing.KeyStroke;
 
+import objects.LocRot;
+import objects.VObject;
+
 /**
  * <p>VObjectMenu.</p>
  */
@@ -25,7 +28,8 @@ public class VObjectMenu extends JetMenu {
     public void actionPerformed(ActionEvent e) {
         JMenuItem src = (JMenuItem) e.getSource();
         if (src == newVObjectItem) {
-            Main.main.objH.newObject();
+            VObject newVObj = Main.main.objH.newObject();
+            newVObj.addBlock(new LocRot());
             Console.log("VObject created");
             revalidate();
         }

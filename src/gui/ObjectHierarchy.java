@@ -141,7 +141,7 @@ public class ObjectHierarchy extends JPanel {
         repaint();
     }
 
-    public void newObject() {
+    public VObject newObject() {
         String newName;
         int counter = 0;
         boolean match = false;
@@ -159,11 +159,9 @@ public class ObjectHierarchy extends JPanel {
                 }
             }
         } while (match);
-        objects.add(new VObject(newName));
-        addToBoxList(newName);
-        Main.main.repaint();
+        return loadObject(newName);
     }
-    
+
     public VObject loadObject(String name) {
         VObject vObj = new VObject(name);
         objects.add(vObj);

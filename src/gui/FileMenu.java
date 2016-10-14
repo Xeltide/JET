@@ -213,9 +213,6 @@ public class FileMenu extends JetMenu {
 
             for (Block block : vObj.getObjBlk()) {
                 block.writeXml(doc, vObjElement);
-//                Element blkElement = doc.createElement("Block");
-//                blkElement.setTextContent(block.getName());
-//                vObjElement.appendChild(blkElement);
             }
         }
         writeXml(doc, file);
@@ -259,7 +256,7 @@ public class FileMenu extends JetMenu {
         revalidate();
         Main.main.repaint();
     }
-    
+
     private void writeXml(Document doc, File file) {
         // write the content into xml file
            TransformerFactory transformerFactory = TransformerFactory.newInstance();

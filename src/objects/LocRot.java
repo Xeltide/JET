@@ -40,29 +40,29 @@ public class LocRot extends Block {
      * 0,0.
      * </p>
      */
-    LocRot() {
+    public LocRot() {
         this(new Vector2(0,0));
     }
-    
+
     public float x() {
         return v.x();
     }
-    
+
     public float y() {
         return v.y();
     }
-    
+
     public Vector2 getVector() {
         return v;
     }
-    
+
     @Override
     public void readXml(Document doc, Element e) {
         float x = Float.parseFloat(e.getElementsByTagName("x").item(0).getTextContent());
         float y = Float.parseFloat(e.getElementsByTagName("y").item(0).getTextContent());
         v = new Vector2(x, y);
     }
-    
+
     @Override
     public void writeXml(Document doc, Element e) {
         Element blkElement = doc.createElement("Block");
