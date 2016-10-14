@@ -50,6 +50,7 @@ public class RoomViewer extends JPanel {
                     if (ren != null && ren.getBufImg() != null) {
                         BufferedImage img = ren.getBufImg();
                         g.drawImage(img, p.x, p.y, (int) screenToWorldRatio * img.getWidth(), (int) screenToWorldRatio * img.getHeight(),null);
+                        g.fillOval((int)p.x - radius, (int)p.y - radius, 2*radius, 2*radius);
                     } else {
                         g.fillOval((int)p.x - radius, (int)p.y - radius, 2*radius, 2*radius);
                     }

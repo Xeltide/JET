@@ -6,9 +6,11 @@ import java.io.IOException;
 
 import javax.imageio.ImageIO;
 
+import org.w3c.dom.Document;
+import org.w3c.dom.Element;
+
 import gui.BlockPanel;
 import gui.Console;
-import gui.Main;
 import gui.Renderer2DPanel;
 
 public class Renderer2D extends Block {
@@ -48,6 +50,27 @@ public class Renderer2D extends Block {
     
     public void setOrder(int ord) {
         order = ord;
+    }
+    
+    @Override
+    public void readXml(Document doc, Element e) {
+        link = e.getElementsByTagName("Path").item(0).getTextContent();
+        setImg(link);
+//        order = Integer.parseInt(e.getElementsByTagName("Order").item(0).getTextContent());
+    }
+    
+    @Override
+    public void writeXml(Document doc, Element e) {
+        Element blkElement = doc.createElement("Block");
+        blkElement.setAttribute("type", type.toString());
+        e.appendChild(blkElement);
+        Element path = doc.createElement("Path");
+        path.setTextContent(link);
+        Element orderEle = doc.createElement("Order");
+        orderEle.setTextContent("" + order);
+        blkElement.appendChild(path);
+        blkElement.appendChild(orderEle);
+        e.appendChild(blkElement);
     }
 
     @Override

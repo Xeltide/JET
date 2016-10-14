@@ -163,6 +163,14 @@ public class ObjectHierarchy extends JPanel {
         addToBoxList(newName);
         Main.main.repaint();
     }
+    
+    public VObject loadObject(String name) {
+        VObject vObj = new VObject(name);
+        objects.add(vObj);
+        addToBoxList(name);
+        Main.main.repaint();
+        return vObj;
+    }
 
     public ArrayList<VObject> getVObjects() {
         return objects;

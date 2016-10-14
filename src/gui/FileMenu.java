@@ -3,6 +3,7 @@ package gui;
 import java.awt.event.ActionEvent;
 import java.awt.event.KeyEvent;
 import java.io.File;
+import java.io.IOException;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -23,8 +24,11 @@ import javax.xml.transform.stream.StreamResult;
 
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
+import org.w3c.dom.NodeList;
+import org.xml.sax.SAXException;
 
 import objects.Block;
+import objects.BlockType;
 import objects.VObject;
 
 /**
@@ -162,7 +166,8 @@ public class FileMenu extends JetMenu {
         int v = openRoom.showOpenDialog(FileMenu.this);
         if (v == JFileChooser.APPROVE_OPTION) {
             File file = openRoom.getSelectedFile();
-            saveRoom.setSelectedFile(file);
+            openRoom.setSelectedFile(file);
+            readRoomXml();
         }
     }
 
@@ -201,18 +206,60 @@ public class FileMenu extends JetMenu {
 
         for (VObject vObj : Main.main.objH.getVObjects()) {
             Element vObjElement = doc.createElement("VObject");
-            vObjElement.setAttribute("name", vObj.getName());
+            Element nameElement = doc.createElement("Name");
+            nameElement.setTextContent(vObj.getName());
             rootElement.appendChild(vObjElement);
+            vObjElement.appendChild(nameElement);
 
             for (Block block : vObj.getObjBlk()) {
-                Element blkElement = doc.createElement("Block");
-                blkElement.setTextContent(block.getName());
-                vObjElement.appendChild(blkElement);
+                block.writeXml(doc, vObjElement);
+//                Element blkElement = doc.createElement("Block");
+//                blkElement.setTextContent(block.getName());
+//                vObjElement.appendChild(blkElement);
             }
         }
         writeXml(doc, file);
     }
 
+    private void readRoomXml() {
+        DocumentBuilderFactory factory = DocumentBuilderFactory.newInstance();
+        DocumentBuilder builder = null;
+        try {
+            builder = factory.newDocumentBuilder();
+        } catch (ParserConfigurationException e) {
+            // TODO Auto-generated catch block
+            e.printStackTrace();
+        }
+        Document doc = null;
+        try {
+            doc = builder.parse(openRoom.getSelectedFile());
+        } catch (SAXException e) {
+            // TODO Auto-generated catch block
+            e.printStackTrace();
+        } catch (IOException e) {
+            // TODO Auto-generated catch block
+            e.printStackTrace();
+        }
+        NodeList nl = doc.getElementsByTagName("VObject");
+        for (int i = 0; i < nl.getLength(); i++) {
+            Element vObjEle = (Element) nl.item(i);
+            Element nameEle = (Element) vObjEle.getElementsByTagName("Name").item(0);
+            String name = nameEle.getTextContent();
+            VObject vObj = Main.main.objH.loadObject(name);
+            NodeList blockList = vObjEle.getElementsByTagName("Block");
+            for (int j = 0; j < blockList.getLength(); j++) {
+                Element blkElement = (Element) blockList.item(j);
+                String typeS = blkElement.getAttributes().getNamedItem("type").getTextContent();
+                BlockType type = BlockType.getTypeFromString(typeS);
+                Block block = type.getNewInstance();
+                vObj.addBlock(block);
+                block.readXml(doc, blkElement);
+            }
+        }
+        revalidate();
+        Main.main.repaint();
+    }
+    
     private void writeXml(Document doc, File file) {
         // write the content into xml file
            TransformerFactory transformerFactory = TransformerFactory.newInstance();

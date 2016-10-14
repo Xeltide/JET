@@ -1,5 +1,8 @@
 package objects;
 
+import org.w3c.dom.Document;
+import org.w3c.dom.Element;
+
 import gui.BlockPanel;
 
 abstract public class Block {
@@ -17,7 +20,7 @@ abstract public class Block {
      * </p>
      */
     private boolean enabled;
-    private BlockType type;
+    protected BlockType type;
 
     Block(BlockType type) {
         changed = false;
@@ -55,5 +58,8 @@ abstract public class Block {
     }
 
     public abstract BlockPanel getNewPanel(VObject obj);
+    
+    public abstract void readXml(Document doc, Element e);
+    public abstract void writeXml(Document doc, Element e);
 
 }

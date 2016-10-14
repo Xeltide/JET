@@ -39,5 +39,14 @@ public enum BlockType {
     public String toString() {
         return name;
     }
+    
+    public static BlockType getTypeFromString(String s) {
+        for (BlockType b : BlockType.values()) {
+            if (s.equals(b.toString())) {
+                return b;
+            }
+        }
+        return null;
+    }
 
 }
